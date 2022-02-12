@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<!-- Default UI Specifications -->
+<!-- ================================= -->
+
+<root>
+
+
+	<window
+		name="window1"
+		width="500"
+		height="500"
+		position="420,140"
+
+		tooltip=""
+
+		border="true"
+		bordercolor="dark_brown"
+		highlightbordercolor="dark_brown"
+		passivebordercolor="dark_brown"
+
+		backgroundcolor="parchment"
+		highlightcolor="light_paper"
+
+		backgroundtexture=""
+		highlighttexture=""
+		bordertexture=""
+		texturefill="stretched"
+		
+		title="Window"
+		closable="true"
+		movable="true"
+		locked=""
+		
+		/>
+
+
+
+	<component
+		name="comp1"
+		position="200,400"
+		width="120"
+		height="40"
+
+		tooltip=""
+
+		border="true"
+		bordercolor="dark_brown"
+		highlightbordercolor="dark_brown"
+
+		backgroundcolor="parchment"
+		highlightcolor="light_paper"
+
+		backgroundtexture=""
+		highlighttexture=""
+		bordertexture=""
+		texturefill="stretched" />
+
+	<button
+		name="button1"
+		position="20,400"
+		width="120"
+		height="40"
+
+		tooltip=""
+
+		border="true"
+		bordercolor="dark_brown"
+		highlightbordercolor="dark_brown"
+
+		backgroundcolor="paper_brown"
+		highlightcolor="light_paper"
+
+		backgroundtexture=""
+		highlighttexture=""
+		bordertexture=""
+		texturefill="tiled"
+
+		pressedcolor="dark_paper"
+		pressedtexture=""
+		icontexture="cursor" />
+
+
+	<textbutton
+		name="txtbutton1"
+		position="20,340"
+		width="120"
+		height="40"
+
+		tooltip=""
+
+		border="true"
+		bordercolor="dark_brown"
+		highlightbordercolor="dark_brown"
+
+		backgroundcolor="paper_brown"
+		highlightcolor="light_paper"
+
+		backgroundtexture=""
+		highlighttexture=""
+		bordertexture=""
+		texturefill="tiled"
+
+		pressedcolor="dark_paper"
+		pressedtexture=""
+		icontexture=""
+
+		fontcolor="black"
+		highlightfontcolor="gray"
+		pressedfontcolor="red"
+		fontsize="20"
+		labelid=""
+		labeltext="Text Button"
+		autosize="false"
+		wordwrap="false"
+		padding="0"
+		textalignment="center" />
+
+	<icon
+		name="icon1"
+		position="20,280"
+		width="120"
+		height="40"
+
+		tooltip=""
+
+		border="true"
+		bordercolor="dark_brown"
+		highlightbordercolor="dark_brown"
+
+		backgroundcolor="invisible"
+		highlightcolor="invisible"
+
+		backgroundtexture=""
+		highlighttexture=""
+		bordertexture=""
+		texturefill="stretched" 
+		
+		icontexture="cursor" />
+
+	<label
+		name="label1"
+		position="20,220"
+		width="120"
+		height="40"
+
+		tooltip=""
+
+		border="true"
+		bordercolor="dark_brown"
+		highlightbordercolor="dark_brown"
+
+		backgroundcolor="parchment"
+		highlightcolor="light_paper"
+
+		backgroundtexture=""
+		highlighttexture=""
+		bordertexture=""
+		texturefill="stretched" 
+		
+		labeltext="Label" />
+
+	<progressbar
+		name="progressbar1"
+		position="20,160"
+		width="420"
+		height="20"	
+
+		tooltip=""
+
+		border="false"
+		bordercolor="dark_brown"
+		highlightbordercolor="dark_brown"
+
+		backgroundcolor="parchment"
+		highlightcolor="light_paper"
+
+		backgroundtexture=""
+		highlighttexture=""
+		bordertexture=""
+		texturefill="stretched" 
+		
+		barcolor="green"
+		bartexture=""
+		orientation="horizontal"
+		progress="0.5"
+		fontcolor="black"
+		fontsize="20"
+		labelid=""
+		labeltext="Progress Bar"
+		showpercentage="true" />
+
+	<slider
+		name="slider1"
+		position="20,50"
+		width="220"
+		height="60"
+
+		tooltip=""
+
+		border="true"
+		bordercolor="dark_brown"
+		highlightbordercolor="dark_brown"
+
+		backgroundcolor="parchment"
+		highlightcolor="light_paper"
+
+		backgroundtexture=""
+		highlighttexture=""
+		bordertexture=""
+		texturefill="stretched"
+		
+		orientation="vertical"
+		wheelscrolling="true"
+		shownumbers="true"
+		valuerange="0,10"
+		value="5"
+		bordercolor="invisible"
+		highlightbordercolor="invisible" />
+
+
+
+
+	<listscrollable
+		name="listscrollable1"
+		position="200,400"
+		width="120"
+		height="40"
+
+		tooltip=""
+
+		border="true"
+		bordercolor="dark_brown"
+		highlightbordercolor="dark_brown"
+
+		backgroundcolor="parchment"
+		highlightcolor="light_paper"
+
+		backgroundtexture=""
+		highlighttexture=""
+		bordertexture=""
+		texturefill="stretched" 
+		
+		gapdistance="10"
+		compwidth="pwidth-20"
+		compheight="40"
+		compsize=""
+		orientaiton="vertical"
+		
+		compborder=""
+		compbordercolor=""
+		compbackgroundcolor=""
+		comphighlightcolor=""
+		comppressedcolor=""
+		compbackgroundtexture=""
+		comppressedtexture=""
+		comphighlighttexture=""
+		comptexturefill=""
+		
+		/>
+
+
+
+
+</root>
+
+
+
+
+<!-- EOF -->
