@@ -1,0 +1,57 @@
+package com.arboreantears.fwt.test;
+
+import com.arboreantears.fwt.FWTWindowManager;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+/** A module for the testing framework. */
+public class TestingModule  implements Screen, InputProcessor
+	{
+		
+		protected FWTWindowManager windowManager;
+		public void setWindowManager(FWTWindowManager winMgr) {windowManager = winMgr;}
+		
+		
+		public void oneShotTests(String[] commandArgs) {}
+		
+		public void createWindow(FWTWindowManager windowManager) {}
+		
+		public void update(float delta) {}
+		
+		public void render(SpriteBatch spriteBatch) {}
+		
+		public void dispose() {}
+		
+		public void pause() {} 
+		
+		public void resume() {}
+		
+		public void resize(int width, int height) {}
+
+		public boolean keyDown(int keycode) {return false;}
+		
+		public boolean keyUp(int keycode) {return false;}
+		
+		public boolean keyTyped(char character) {return false;}
+		
+		public boolean touchDown(int screenX, int screenY, int pointer, int button) {return false;}
+		
+		public boolean touchUp(int screenX, int screenY, int pointer, int button) {return false;}		
+		
+		public boolean touchDragged(int screenX, int screenY, int pointer) {return false;}
+		
+		public boolean mouseMoved(int screenX, int screenY) {return false;}
+		
+		public boolean scrolled(float amountX,float amountY) {return false;}
+		
+		public void show() {}
+		
+		public void render(float delta) {}
+		
+		public void hide() {}
+		
+		
+		
+
+	}
