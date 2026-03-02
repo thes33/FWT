@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://arboreantears.com/fwt/ui"
+           xmlns:tns="http://arboreantears.com/fwt/ui"
+           elementFormDefault="qualified">
+
+  <!-- Root element -->
+  <xs:element name="root" type="tns:RootType"/>
+
+  <!-- Root Type Definition -->
+  <xs:complexType name="RootType">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="window" type="tns:WindowType"/>
+        <xs:element name="component" type="tns:ComponentType"/>
+        <xs:element name="container" type="tns:ContainerType"/>
+        <xs:element name="button" type="tns:ButtonType"/>
+        <xs:element name="icon" type="tns:IconType"/>
+        <xs:element name="label" type="tns:LabelType"/>
+        <xs:element name="listscrollable" type="tns:ListScrollableType"/>
+        <xs:element name="progressbar" type="tns:ProgressBarType"/>
+        <xs:element name="scrollable" type="tns:ScrollableType"/>
+        <xs:element name="scrollpanel" type="tns:ScrollPaneType"/>
+        <xs:element name="slider" type="tns:SliderType"/>
+        <xs:element name="textbutton" type="tns:TextButtonType"/>
+        <xs:element name="textfield" type="tns:TextFieldType"/>
+        <xs:element name="togglebutton" type="tns:ToggleButtonType"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Base Component Type -->
+  <xs:complexType name="BaseComponentType">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="position" type="xs:string"/>
+    <xs:attribute name="width" type="xs:string"/>
+    <xs:attribute name="height" type="xs:string"/>
+    <xs:attribute name="tooltip" type="xs:string"/>
+    <xs:attribute name="bordercolor" type="xs:string"/>
+    <xs:attribute name="highlightbordercolor" type="xs:string"/>
+    <xs:attribute name="backgroundcolor" type="xs:string"/>
+    <xs:attribute name="highlightcolor" type="xs:string"/>
+    <xs:attribute name="backgroundtexture" type="xs:string"/>
+    <xs:attribute name="highlighttexture" type="xs:string"/>
+    <xs:attribute name="bordertexture" type="xs:string"/>
+    <xs:attribute name="border" type="xs:boolean"/>
+    <xs:attribute name="texturefill" type="xs:string"/>
+  </xs:complexType>
+
+  <!-- Component Type -->
+  <xs:complexType name="ComponentType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType"/>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Container Type -->
+  <xs:complexType name="ContainerType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType"/>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Window Type -->
+  <xs:complexType name="WindowType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType">
+        <xs:attribute name="title" type="xs:string"/>
+        <xs:attribute name="closeable" type="xs:boolean"/>
+        <xs:attribute name="extendwidth" type="xs:boolean"/>
+        <xs:attribute name="extendheight" type="xs:boolean"/>
+        <xs:attribute name="borderbar" type="xs:boolean"/>
+        <xs:attribute name="passivebordercolor" type="xs:string"/>
+        <xs:attribute name="movable" type="xs:boolean"/>
+        <xs:attribute name="locked" type="xs:string"/>
+        <xs:attribute name="minwidth" type="xs:int"/>
+        <xs:attribute name="minheight" type="xs:int"/>
+        <xs:attribute name="layer" type="xs:int"/>
+        <xs:attribute name="border" type="xs:boolean"/>
+        <xs:attribute name="position" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Button Type -->
+  <xs:complexType name="ButtonType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType">
+        <xs:attribute name="pressedcolor" type="xs:string"/>
+        <xs:attribute name="pressedtexture" type="xs:string"/>
+        <xs:attribute name="icontexture" type="xs:string"/>
+        <xs:attribute name="icontype" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Icon Type -->
+  <xs:complexType name="IconType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType">
+        <xs:attribute name="icontexture" type="xs:string"/>
+        <xs:attribute name="icontype" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Label Type -->
+  <xs:complexType name="LabelType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType">
+        <xs:attribute name="fontcolor" type="xs:string"/>
+        <xs:attribute name="fontsize" type="xs:int"/>
+        <xs:attribute name="labelid" type="xs:string"/>
+        <xs:attribute name="labeltext" type="xs:string"/>
+        <xs:attribute name="autosize" type="xs:boolean"/>
+        <xs:attribute name="wordwrap" type="xs:boolean"/>
+        <xs:attribute name="markup" type="xs:boolean"/>
+        <xs:attribute name="padding" type="xs:int"/>
+        <xs:attribute name="textalignment" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- ListScrollable Type -->
+  <xs:complexType name="ListScrollableType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType">
+        <xs:attribute name="verticalscroll" type="xs:boolean"/>
+        <xs:attribute name="horizontalscroll" type="xs:boolean"/>
+        <xs:attribute name="virtualwidth" type="xs:int"/>
+        <xs:attribute name="virtualheight" type="xs:int"/>
+        <xs:attribute name="virtualstart" type="xs:string"/>
+        <xs:attribute name="showverticalscroll" type="xs:boolean"/>
+        <xs:attribute name="showhorizontalscroll" type="xs:boolean"/>
+        <xs:attribute name="barsize" type="xs:int"/>
+        <xs:attribute name="keyscrolling" type="xs:boolean"/>
+        <xs:attribute name="gapdistance" type="xs:int"/>
+        <xs:attribute name="compwidth" type="xs:string"/>
+        <xs:attribute name="compheight" type="xs:string"/>
+        <xs:attribute name="orientation" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- ProgressBar Type -->
+  <xs:complexType name="ProgressBarType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType">
+        <xs:attribute name="barcolor" type="xs:string"/>
+        <xs:attribute name="bartexture" type="xs:string"/>
+        <xs:attribute name="orientation" type="xs:string"/>
+        <xs:attribute name="progress" type="xs:float"/>
+        <xs:attribute name="fontcolor" type="xs:string"/>
+        <xs:attribute name="fontsize" type="xs:int"/>
+        <xs:attribute name="labelid" type="xs:string"/>
+        <xs:attribute name="labeltext" type="xs:string"/>
+        <xs:attribute name="showpercentage" type="xs:boolean"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Scrollable Type -->
+  <xs:complexType name="ScrollableType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType">
+        <xs:attribute name="verticalscroll" type="xs:boolean"/>
+        <xs:attribute name="horizontalscroll" type="xs:boolean"/>
+        <xs:attribute name="virtualwidth" type="xs:int"/>
+        <xs:attribute name="virtualheight" type="xs:int"/>
+        <xs:attribute name="virtualstart" type="xs:string"/>
+        <xs:attribute name="showverticalscroll" type="xs:boolean"/>
+        <xs:attribute name="showhorizontalscroll" type="xs:boolean"/>
+        <xs:attribute name="barsize" type="xs:int"/>
+        <xs:attribute name="keyscrolling" type="xs:boolean"/>
+        <xs:attribute name="buttonbordercolor" type="xs:string"/>
+        <xs:attribute name="buttonhighlightbordercolor" type="xs:string"/>
+        <xs:attribute name="buttonbackgroundcolor" type="xs:string"/>
+        <xs:attribute name="buttonhighlightcolor" type="xs:string"/>
+        <xs:attribute name="buttonpressedcolor" type="xs:string"/>
+        <xs:attribute name="buttonbordertexture" type="xs:string"/>
+        <xs:attribute name="buttonbackgroundtexture" type="xs:string"/>
+        <xs:attribute name="buttonhighlighttexture" type="xs:string"/>
+        <xs:attribute name="buttonpressedtexture" type="xs:string"/>
+        <xs:attribute name="buttontexturefill" type="xs:string"/>
+        <xs:attribute name="buttonborder" type="xs:boolean"/>
+        <xs:attribute name="barbordertexture" type="xs:string"/>
+        <xs:attribute name="barbordercolor" type="xs:string"/>
+        <xs:attribute name="barbackgroundcolor" type="xs:string"/>
+        <xs:attribute name="barhighlightcolor" type="xs:string"/>
+        <xs:attribute name="barbackgroundtexture" type="xs:string"/>
+        <xs:attribute name="barhighlighttexture" type="xs:string"/>
+        <xs:attribute name="bartexturefill" type="xs:string"/>
+        <xs:attribute name="barborder" type="xs:boolean"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- ScrollPanel Type -->
+  <xs:complexType name="ScrollPaneType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType">
+        <xs:attribute name="verticalscroll" type="xs:boolean"/>
+        <xs:attribute name="horizontalscroll" type="xs:boolean"/>
+        <xs:attribute name="virtualwidth" type="xs:int"/>
+        <xs:attribute name="virtualheight" type="xs:int"/>
+        <xs:attribute name="virtualstart" type="xs:string"/>
+        <xs:attribute name="showverticalscroll" type="xs:boolean"/>
+        <xs:attribute name="showhorizontalscroll" type="xs:boolean"/>
+        <xs:attribute name="barsize" type="xs:int"/>
+        <xs:attribute name="keyscrolling" type="xs:boolean"/>
+        <xs:attribute name="wheelscrolling" type="xs:boolean"/>
+        <xs:attribute name="showscrollbar" type="xs:boolean"/>
+        <xs:attribute name="gapdistance" type="xs:int"/>
+        <xs:attribute name="maxcompsize" type="xs:int"/>
+        <xs:attribute name="orientation" type="xs:string"/>
+        <xs:attribute name="buttonbordercolor" type="xs:string"/>
+        <xs:attribute name="buttonhighlightbordercolor" type="xs:string"/>
+        <xs:attribute name="buttonbackgroundcolor" type="xs:string"/>
+        <xs:attribute name="buttonhighlightcolor" type="xs:string"/>
+        <xs:attribute name="buttonbordertexture" type="xs:string"/>
+        <xs:attribute name="buttonbackgroundtexture" type="xs:string"/>
+        <xs:attribute name="buttonhighlighttexture" type="xs:string"/>
+        <xs:attribute name="buttonpressedtexture" type="xs:string"/>
+        <xs:attribute name="buttontexturefill" type="xs:string"/>
+        <xs:attribute name="buttonborder" type="xs:boolean"/>
+        <xs:attribute name="barbordercolor" type="xs:string"/>
+        <xs:attribute name="barbackgroundcolor" type="xs:string"/>
+        <xs:attribute name="barhighlightcolor" type="xs:string"/>
+        <xs:attribute name="barbordertexture" type="xs:string"/>
+        <xs:attribute name="barbackgroundtexture" type="xs:string"/>
+        <xs:attribute name="barhighlighttexture" type="xs:string"/>
+        <xs:attribute name="bartexturefill" type="xs:string"/>
+        <xs:attribute name="barborder" type="xs:boolean"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Slider Type -->
+  <xs:complexType name="SliderType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType">
+        <xs:attribute name="orientation" type="xs:string"/>
+        <xs:attribute name="barsize" type="xs:int"/>
+        <xs:attribute name="padding" type="xs:int"/>
+        <xs:attribute name="keyscrolling" type="xs:boolean"/>
+        <xs:attribute name="wheelscrolling" type="xs:boolean"/>
+        <xs:attribute name="valuerange" type="xs:string"/>
+        <xs:attribute name="value" type="xs:float"/>
+        <xs:attribute name="fontsize" type="xs:int"/>
+        <xs:attribute name="labelfontsize" type="xs:int"/>
+        <xs:attribute name="numfontsize" type="xs:int"/>
+        <xs:attribute name="fontcolor" type="xs:string"/>
+        <xs:attribute name="labelfontcolor" type="xs:string"/>
+        <xs:attribute name="numfontcolor" type="xs:string"/>
+        <xs:attribute name="labelid" type="xs:string"/>
+        <xs:attribute name="labelstring" type="xs:string"/>
+        <xs:attribute name="numlabels" type="xs:boolean"/>
+        <xs:attribute name="shownumbers" type="xs:boolean"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- TextButton Type -->
+  <xs:complexType name="TextButtonType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType">
+        <xs:attribute name="pressedcolor" type="xs:string"/>
+        <xs:attribute name="pressedtexture" type="xs:string"/>
+        <xs:attribute name="icontexture" type="xs:string"/>
+        <xs:attribute name="fontcolor" type="xs:string"/>
+        <xs:attribute name="highlightfontcolor" type="xs:string"/>
+        <xs:attribute name="pressedfontcolor" type="xs:string"/>
+        <xs:attribute name="fontsize" type="xs:int"/>
+        <xs:attribute name="labelid" type="xs:string"/>
+        <xs:attribute name="autosize" type="xs:boolean"/>
+        <xs:attribute name="wordwrap" type="xs:boolean"/>
+        <xs:attribute name="padding" type="xs:int"/>
+        <xs:attribute name="textalignment" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- TextField Type -->
+  <xs:complexType name="TextFieldType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType">
+        <xs:attribute name="fontcolor" type="xs:string"/>
+        <xs:attribute name="highlightfontcolor" type="xs:string"/>
+        <xs:attribute name="fontsize" type="xs:int"/>
+        <xs:attribute name="text" type="xs:string"/>
+        <xs:attribute name="wordwrap" type="xs:boolean"/>
+        <xs:attribute name="padding" type="xs:int"/>
+        <xs:attribute name="maxlength" type="xs:int"/>
+        <xs:attribute name="allowedchars" type="xs:string"/>
+        <xs:attribute name="msgtext" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- ToggleButton Type -->
+  <xs:complexType name="ToggleButtonType">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseComponentType">
+        <xs:attribute name="pressedcolor" type="xs:string"/>
+        <xs:attribute name="pressedtexture" type="xs:string"/>
+        <xs:attribute name="icontexture" type="xs:string"/>
+        <xs:attribute name="icontype" type="xs:string"/>
+        <xs:attribute name="pressedicontexture" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+</xs:schema>
