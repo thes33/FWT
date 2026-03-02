@@ -300,6 +300,16 @@ public class FWTTextField extends FWTComponent
 		}
 	
 
+
+	@Override
+	protected XMLDataPacket getDefaultPropertiesByFile()
+		{
+			return super.getDefaultPropertiesByFile().merge(FWTController.getDefaultComponentProperties("textfield"));
+		}
+	
+	
+	
+
 	@Override
 	public void applyDataParameters(XMLDataPacket data)
 	{

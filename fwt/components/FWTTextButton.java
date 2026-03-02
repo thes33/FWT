@@ -1,6 +1,7 @@
 package com.arboreantears.fwt.components;
 
 import com.arboreantears.fwt.Direction;
+import com.arboreantears.fwt.FWTController;
 import com.arboreantears.fwt.Fonts;
 import com.arboreantears.fwt.Language;
 import com.arboreantears.fwt.XMLDataPacket;
@@ -15,7 +16,7 @@ import com.badlogic.gdx.utils.Align;
 
 
 /** A button object with a label text. */
-public class FWTTextButton extends FWTButton
+public class FWTTextButton extends FWTUIButton
 {
 
 
@@ -193,6 +194,16 @@ public class FWTTextButton extends FWTButton
 			pressedFontColor = Color.BLACK.cpy();
 			
 		}
+	
+
+
+	@Override
+	protected XMLDataPacket getDefaultPropertiesByFile()
+		{
+			return super.getDefaultPropertiesByFile().merge(FWTController.getDefaultComponentProperties("textbutton"));
+		}
+	
+	
 
 	@Override
 	public void applyDataParameters(XMLDataPacket data)

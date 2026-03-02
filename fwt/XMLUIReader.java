@@ -23,6 +23,11 @@ public class XMLUIReader extends DefaultHandler
 	//***********************************************************************************************
 	//***********************************************************************************************
 
+	/** 'True' if in XML logging verbose mode. */
+	static boolean xmlLogMode = false;
+	/** Sets whether XML logging is in verbose mode. */
+	public static void setXMLLogModeVerbose(boolean verboseOn) {xmlLogMode = verboseOn;}
+
 	/** 'True' if reader is finished reading a file. */
 	boolean finished = false;
 
@@ -51,8 +56,8 @@ public class XMLUIReader extends DefaultHandler
 
 
 
-	
-	
+
+
 
 
 	// CHECK FOR XML
@@ -62,37 +67,37 @@ public class XMLUIReader extends DefaultHandler
 
 	/** Checks to see if UI specifications for the component exist, with the given object name and parent-file (no extension [.xml]). */
 	public static boolean hasUISpecs(String parentfile, String objectName)
+	{
+		XMLUIReader inflater = new XMLUIReader();
+		XMLDataPacket dataPacket = null;
+
+		FileHandle overrideFile = new FileHandle(FWTController.getOverrideUIFilePath()+"/"+parentfile+".xml");
+		if (overrideFile.exists())
 		{
-			XMLUIReader inflater = new XMLUIReader();
-			XMLDataPacket dataPacket = null;
-
-			FileHandle overrideFile = new FileHandle(FWTController.getOverrideUIFilePath()+"/"+parentfile+".xml");
-			if (overrideFile.exists())
-				{
-					try{
-						dataPacket = inflater.read(overrideFile.path(), objectName);
-					}catch(Exception ex) { }
-				}
-
-			// IF no override version found, check core version
-			if (dataPacket == null)
-				{
-					FileHandle coreFile = new FileHandle(FWTController.getUIFilePath()+"/"+parentfile+".xml");
-					// Read UI XML file [Core]
-					if (coreFile.exists())
-						try{
-							dataPacket = inflater.read(coreFile.path(), objectName);
-						}catch(Exception ex) { }	
-				}
-
-			// IF still no data found, report error
-			if (dataPacket == null)
-				return false;
-			else
-				{
-					return true;
-				}
+			try{
+				dataPacket = inflater.read(overrideFile.path(), objectName);
+			}catch(Exception ex) { }
 		}
+
+		// IF no override version found, check core version
+		if (dataPacket == null)
+		{
+			FileHandle coreFile = new FileHandle(FWTController.getUIFilePath()+"/"+parentfile+".xml");
+			// Read UI XML file [Core]
+			if (coreFile.exists())
+				try{
+					dataPacket = inflater.read(coreFile.path(), objectName);
+				}catch(Exception ex) { }	
+		}
+
+		// IF still no data found, report error
+		if (dataPacket == null)
+			return false;
+		else
+		{
+			return true;
+		}
+	}
 
 
 
@@ -115,40 +120,40 @@ public class XMLUIReader extends DefaultHandler
 				dataPacket = inflater.read(overrideFile.path(), objectName);
 			}catch(Exception ex)
 		{
-			// Error message variables
-			FWTController.error("Error in UI XML file:");
-			FWTController.error("   "+ex.getMessage());
-			// Return failure
-			return null;
+				// Error message variables
+				FWTController.error("Error in UI XML file:");
+				FWTController.error("   "+ex.getMessage());
+				// Return failure
+				return null;
 		}
 
 		// IF no override version found, load core version
 		if (dataPacket == null)
+		{
+			FileHandle coreFile = new FileHandle(FWTController.getUIFilePath()+"/"+parentfile+".xml");
+			// Read UI XML file [Core]
+			if (coreFile.exists())
+				try{
+					dataPacket = inflater.read(coreFile.path(), objectName);
+				}catch(Exception ex)
 			{
-				FileHandle coreFile = new FileHandle(FWTController.getUIFilePath()+"/"+parentfile+".xml");
-				// Read UI XML file [Core]
-				if (coreFile.exists())
-					try{
-						dataPacket = inflater.read(coreFile.path(), objectName);
-					}catch(Exception ex)
-				{
 					// Error message variables
 					FWTController.error("Error in UI XML file:");
 					FWTController.error("   "+ex.getMessage());
 					// Return failure
 					return null;
-				}	
-			}
+			}	
+		}
 
 		// IF still no data found, report error
 		if (dataPacket == null)
 			FWTController.error("UI Component: "+objectName+" specifications not found.");
 		else
-			{
-				// Add XML content information
-				dataPacket.put("parentfile", parentfile);
-				dataPacket.put("objectname", objectName);
-			}
+		{
+			// Add XML content information
+			dataPacket.put("parentfile", parentfile);
+			dataPacket.put("objectname", objectName);
+		}
 
 		return dataPacket;
 	}
@@ -166,7 +171,9 @@ public class XMLUIReader extends DefaultHandler
 	/** Reads an XML data contained in the given file and returns a new data packet. */
 	public XMLDataPacket read(String document, String targetName) throws Exception
 	{
-		FWTController.log("XML: "+document+" : "+targetName);
+		if (xmlLogMode)
+			FWTController.log("XML: "+document+" : "+targetName);
+
 		// Use the default (non-validating) parser
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		this.targetName = targetName;
@@ -179,16 +186,17 @@ public class XMLUIReader extends DefaultHandler
 		FWTController.error("ERROR: Sax exception."); throw new Exception("File: "+document+"\n      "+ex.getLocalizedMessage());}
 
 		// Prepare Logger and Notify
-		FWTController.log("Reading in XML file: UI:  "+document+" : "+targetName);
+		if (xmlLogMode)
+			FWTController.log("Reading in XML file: UI:  "+document+" : "+targetName);
 
 		// Enter Waiting Loop
 		while(!finished)
-			{
-				try{
-					Thread.sleep(1);
-				}
-				catch (Exception ex) {ex.printStackTrace(); throw new Exception(ex.getLocalizedMessage());}
+		{
+			try{
+				Thread.sleep(1);
 			}
+			catch (Exception ex) {ex.printStackTrace(); throw new Exception(ex.getLocalizedMessage());}
+		}
 		finished = false;
 
 		// Return the data packet
@@ -227,34 +235,34 @@ public class XMLUIReader extends DefaultHandler
 
 		// IF component name matches target
 		if (attrs.getValue("name") != null && attrs.getValue("name").equals(targetName))
+		{
+
+			// Prepare data packet
+			dataPacket = new XMLDataPacket();
+
+			// IF has attributes
+			if (attrs.getLength() > 0)
 			{
+				// FOR each attribute
+				for (int i = 0; i < attrs.getLength(); i++)
+				{
+					// Get Attribute name
+					String aName = attrs.getLocalName(i);
+					// IF local name empty
+					if ("".equals(aName))
+						// Get qualified name
+						aName = attrs.getQName(i);
+					// Add data to HashMap
+					dataPacket.put(aName,attrs.getValue(i));
+				}
 
-				// Prepare data packet
-				dataPacket = new XMLDataPacket();
+				// Add parent component depth
+				dataPacket.put("depth", Integer.toString(componentDepth));
 
-				// IF has attributes
-				if (attrs.getLength() > 0)
-					{
-						// FOR each attribute
-						for (int i = 0; i < attrs.getLength(); i++)
-							{
-								// Get Attribute name
-								String aName = attrs.getLocalName(i);
-								// IF local name empty
-								if ("".equals(aName))
-									// Get qualified name
-									aName = attrs.getQName(i);
-								// Add data to HashMap
-								dataPacket.put(aName,attrs.getValue(i));
-							}
-
-						// Add parent component depth
-						dataPacket.put("depth", Integer.toString(componentDepth));
-
-						// Add component type
-						dataPacket.put("type", eName);
-					}
+				// Add component type
+				dataPacket.put("type", eName);
 			}
+		}
 
 	} // END startElement method
 

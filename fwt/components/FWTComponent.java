@@ -1,6 +1,5 @@
 package com.arboreantears.fwt.components;
 
-import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
 import com.arboreantears.fwt.FWTColors;
@@ -299,13 +298,20 @@ public class FWTComponent
 	/** Sets this drawable component's image texture ID. Set to 'null' to use background coloring instead. */
 	public void setTexture(String imgID) {bgTexture = imgID;}
 
-	/** 'True' if this drawable component should scale its texture to fit (stretched). 
-		<br> 'False' indicates a tiled texture. */
+	/** 'True' if this drawable component should scale its texture to fit (stretched). */
 	protected boolean scaleTexture;
-	/** Returns 'True' if this drawable component will scale its texture to fit, 'False' if this texture is tiled. */
+	/** Returns 'True' if this drawable component will scale its texture to fit. */
 	public boolean isTextureScaled() {return scaleTexture;}
-	/** Sets this drawable component to scale its texture to fit its size, set to false if this texture is to be tiled. */
+	/** Sets this drawable component to scale its texture to fit its size. */
 	public void setTextureScaled(boolean texScale) {scaleTexture = texScale;}
+
+
+	/** 'True' if this drawable component should be tiled (drawn multiple times). */
+	protected boolean tileTexture;
+	/** Returns 'True' if this drawable component will scale its texture to fit, 'False' if this texture is tiled. */
+	public boolean isTextureTiled() {return tileTexture;}
+	/** Sets this drawable component to scale its texture to fit its size, set to false if this texture is to be tiled. */
+	public void setTextureTiled(boolean texTile) {tileTexture = texTile;}
 
 
 	/** Image ID for a texture-based drawable component when highlighted.  Null is no texture. */
@@ -385,23 +391,34 @@ public class FWTComponent
 	public FWTComponent(XMLDataPacket data)
 		{
 			id = FWTController.generateObjectTag();
-			setDefaults();
 
-			if (data != null)
-				applyDataParameters(data);
+			// Set basic default parameters
+			setDefaults();			
+			
+			// Override with application default parameters
+			this.data = getDefaultPropertiesByFile();
+			if (!this.data.isEmpty()) {this.data.merge(data);}
+			else {this.data = data;}
+			
+			// Apply specific object parameters
+			applyDataParameters(this.data);
 		}
 
 	/** Creates a new blank drawable component with the given XML targets. */
 	public FWTComponent(String parent, String object)
 		{
 			id = FWTController.generateObjectTag();
-			setDefaults();
+			// Set basic default parameters
+			setDefaults();			
+			
+			// Override with application default parameters
+			this.data = getDefaultPropertiesByFile();
 
 			if (parent != null && object != null)
 				{
-					data.put("parentfile", parent);
-					data.put("objectname", object);
-					applyDataParameters(XMLUIReader.getUISpecs(parent, object));
+					this.data.put("parentfile", parent);
+					this.data.put("objectname", object);
+					applyDataParameters(this.data.merge(XMLUIReader.getUISpecs(parent, object)));
 				}
 		}
 
@@ -425,17 +442,34 @@ public class FWTComponent
 			backgroundColor = Color.GRAY;
 			highlightColor = Color.LIGHT_GRAY;
 			scaleTexture = true;
+			tileTexture = false;
 			needsRedrawn = true;
 			drawPriority = Integer.MAX_VALUE-1;
 			data = new XMLDataPacket();		
 		}
 
 
+	/** Get default variable values from UI properties file. */
+	protected XMLDataPacket getDefaultPropertiesByFile()
+		{
+			return FWTController.getDefaultComponentProperties("component");
+		}
+
+
+
 
 	/** Reread and refresh the XML data from the parent XML file. */
 	public void refreshData()
 		{
-			applyDataParameters(XMLUIReader.getUISpecs(data.get("parentfile"),data.get("objectname")));
+			FWTWindowManager manager = this.manager;
+			String parent = this.data.get("parentfile");
+			String obj = this.data.get("objectname");
+			//setDefaults();
+			//data = getDefaultPropertiesByFile();			
+			applyDataParameters(data.merge(XMLUIReader.getUISpecs(parent,obj)));
+			this.setWindowManager(manager);
+			// Apply manual parameter changes
+			afterRefresh();
 		}
 
 
@@ -447,11 +481,6 @@ public class FWTComponent
 			//--------------------------------------
 			try{if (data != null)
 				{
-					// Add each XML entry to data set
-					for (Entry<String,String> entry : data.getMap().entrySet())
-						this.data.put(entry.getKey(), entry.getValue());
-						
-					
 					// NAME
 					//========================
 					if (data.get("name") != null)
@@ -542,7 +571,9 @@ public class FWTComponent
 					if (data.get("texturefill") != null)
 						{
 							this.scaleTexture = data.get("texturefill").equals("stretched") ? true : false;
+							this.tileTexture = data.get("texturefill").equals("tiled") ? true : false;
 						}
+
 
 					// COMPONENT DATA
 					//========================
@@ -559,8 +590,8 @@ public class FWTComponent
 										{FWTController.error("Invalid XML Data for UI: '"+this.name+"'. Cannot read component data.");}
 								}
 						}
-					
-					
+
+
 
 				}
 			// ELSE not valid data packet
@@ -985,6 +1016,12 @@ public class FWTComponent
 
 		}
 
+	
+	/** Method called after a refresh of XML data. This is the place to manually change DATA values to override XML data. */
+	public void afterRefresh()
+	{
+		
+	}
 
 
 	/** Resizes this drawable component to the new given dimensions.  
@@ -1142,7 +1179,7 @@ public class FWTComponent
 					else
 						{
 							spriteBatch.begin();
-							UIRenderer.drawUIImage(spriteBatch, id, bgTexture, 0, 0,(int)dims.width,(int)dims.height, scaleTexture, !scaleTexture);
+							UIRenderer.drawUIImage(spriteBatch, id, bgTexture, 0, 0,(int)dims.width,(int)dims.height, scaleTexture, tileTexture);
 							spriteBatch.end();
 						}
 
@@ -1168,7 +1205,7 @@ public class FWTComponent
 							else
 								{
 									spriteBatch.begin();
-									UIRenderer.drawUIImage(spriteBatch, id, bgTexture, 0, 0,(int)dims.width,(int)dims.height, scaleTexture, !scaleTexture);
+									UIRenderer.drawUIImage(spriteBatch, id, bgTexture, 0, 0,(int)dims.width,(int)dims.height, scaleTexture, tileTexture);
 									spriteBatch.end();
 								}
 						}
@@ -1177,7 +1214,7 @@ public class FWTComponent
 					else
 						{
 							spriteBatch.begin();
-							UIRenderer.drawUIImage(spriteBatch, id, highlightTexture, 0, 0,(int)dims.width,(int)dims.height, scaleTexture, !scaleTexture);
+							UIRenderer.drawUIImage(spriteBatch, id, highlightTexture, 0, 0,(int)dims.width,(int)dims.height, scaleTexture, tileTexture);
 							spriteBatch.end();
 						}
 				}
@@ -1214,7 +1251,7 @@ public class FWTComponent
 			else
 				{
 					spriteBatch.begin();
-					UIRenderer.drawUIImage(spriteBatch, id, borderTexture, 0, 0,(int)dims.width,(int)dims.height, scaleTexture, !scaleTexture);
+					UIRenderer.drawUIImage(spriteBatch, id, borderTexture, 0, 0,(int)dims.width,(int)dims.height, scaleTexture, tileTexture);
 					spriteBatch.end();
 				}
 
@@ -1324,7 +1361,8 @@ public class FWTComponent
 					mouseOver = true;
 
 					// Tool-tip
-					this.getWindowManager().getTooltip().update(getToolTipString());
+					if (this.getWindowManager() != null)
+						this.getWindowManager().getTooltip().update(getToolTipString());
 
 					// IF has input receiver
 					if (inputReceiver != null)

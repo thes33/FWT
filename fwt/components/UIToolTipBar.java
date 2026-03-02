@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 
 
 
@@ -46,7 +47,7 @@ public class UIToolTipBar
 
 
 	/** Counter for tool-tip delay */
-	float counter;
+	float counter = 0f;
 
 	/** Changes the text of the tooltip to the given String and sets the timer to show. */
 	public void update(String txt)
@@ -206,7 +207,9 @@ public class UIToolTipBar
 						// Enable mark-up
 						font.getData().markupEnabled = true;
 						// Get Width and Height of Text
-						glyphs.setText(font, text);
+						//glyphs.setText(font, text); // [Old] No wrap or limit
+						glyphs.setText(font, text, Color.BLACK, 300, Align.left, true);
+						
 
 						float width = glyphs.width;
 						float height = glyphs.height;

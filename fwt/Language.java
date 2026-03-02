@@ -8,9 +8,10 @@ import com.badlogic.gdx.files.FileHandle;
 
 
 
-/** Language library for handling text and strings.*/
+/** Language implementation for the FWT system.*/
 public class Language
 {
+	
 
 	// VARIABLES
 	//********************************************************************

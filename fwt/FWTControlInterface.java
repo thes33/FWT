@@ -80,7 +80,7 @@ public abstract class FWTControlInterface
 		
 
 		/** Returns the default UI component properties filename. */
-		public abstract String getDefaultComponentProperties();
+		public abstract String getDefaultComponentPropertiesFilename();
 
 
 
@@ -90,7 +90,10 @@ public abstract class FWTControlInterface
 		//********************************************************************
 
 		/** Returns the bitmap font file listing. */ 
-		public abstract ArrayList<String> getFontListing();
+		public abstract ArrayList<String> getBitmapFontListing();
+
+		/** Returns the TrueType font file listing. */ 
+		public abstract ArrayList<String> getTrueTypeFontListing();
 
 
 

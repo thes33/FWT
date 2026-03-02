@@ -90,7 +90,19 @@ public class Position
 						return true;
 				}
 			return false;
-		}
+		}	
+
+	/** Returns 'True' if given object is a position with the same coordinates (X,Y). */
+	public boolean equals(int X, int Y)
+	{
+		return x == X && y == Y;
+	}	
+
+	/** Returns 'True' if given object is a position with the same coordinates (X,Y,Z). */
+	public boolean equals(int X, int Y, int Z)
+	{
+		return x == X && y == Y && z == Z;
+	}
 
 	@Override
 	/** Returns the hashcode for these coordinates. */
@@ -349,6 +361,47 @@ public class Position
 		}
 
 
+	/** Calculates distance (squares) from this point to the given point based on World Saga game rules.*/
+	public int getGameRuleDistance(Position pos, boolean lingeringDiagonal)
+	{
+		return getGameRuleDistance(pos.x, pos.y, lingeringDiagonal);
+	}
+
+	/** Calculates distance (squares) from this point to the given point based on World Saga game rules.*/
+	public int getGameRuleDistance(int x, int y, boolean lingeringDiagonal)
+		{
+			int xDist = Math.abs(this.x - x);
+			int yDist = Math.abs(this.y - y);
+
+			int numDiag = Math.min(xDist,yDist);
+			
+			// Start with non-diagonal movement
+			int squares = Math.max(xDist, yDist) - numDiag;
+
+			// Add diagonal movement
+			squares = squares + numDiag;
+			
+			// Every two diagonals count as 2 squares
+			int doubleSQ = numDiag / 2;
+			// Add extra squares
+			squares = squares + doubleSQ;
+			
+			// IF has lingering diagonal AND odd diagonals
+			if (lingeringDiagonal && (numDiag % 2 == 1))
+				squares = squares + 1;
+			
+			return squares;
+		}
+	
+	/** Returns true if the number of diagonals between two positions is odd. */
+	public boolean hasOddDiagonals(Position pos)
+	{
+		int xDist = Math.abs(this.x - pos.x);
+		int yDist = Math.abs(this.y - pos.y);
+
+		return (Math.min(xDist,yDist) % 2) == 1;		
+	}
+	
 
 
 

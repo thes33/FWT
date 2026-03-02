@@ -6,11 +6,14 @@ import com.arboreantears.fwt.XMLDataPacket;
 import com.arboreantears.fwt.events.FWTButtonListener;
 import com.arboreantears.fwt.events.FWTInputException;
 import com.arboreantears.fwt.events.FWTInputReceiver;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-/** A button component that is toggled on or off with each press. */
-public class FWTToggleButton extends FWTUIButton
+
+
+/** A FWT UI button component that can handle button events. */
+public class FWTUIButton extends FWTComponent
 {
 
 
@@ -21,22 +24,74 @@ public class FWTToggleButton extends FWTUIButton
 
 	@Override
 	public String toString()
+	{
+		return "Button: "+this.name;
+	}
+
+
+	// Status
+	//-----------------------
+
+	/** 'True' if button is being pressed. */
+	protected boolean pressed;
+	/** Returns 'True' if button is currently being pressed down. */
+	public boolean isPressed() {return pressed;}
+	/** Sets the button as currently pressed.  Does not trigger button listeners. Rendering only. */
+	public void setPressed(boolean p) {pressed = p; this.redraw();}
+
+
+
+	// Appearance
+	//-----------------------
+
+	/** Button color when button is being pressed. */
+	protected Color pressedColor;
+	/** Sets this drawable's pressed color. */
+	public Color getPressedColor() {return pressedColor;}
+	/** Sets this drawable's pressed color. */
+	public void setPressedColor(Color pcolor) {pressedColor = pcolor;}
+
+
+	/** Image ID for this button when pressed.  Null is no texture. */
+	protected String pressedTexture;
+	/** Returns the texture for the button when pressed. */
+	public String getTexturePressed() {return pressedTexture;}
+	/** Sets the texture for the button when pressed. Set to 'null' to use normal texture/background instead. */
+	public void setTexturePressed(String imgID) {pressedTexture = imgID;}
+
+
+	/** Image ID for this button's icon (if any).  Null is disabled. */
+	protected String iconTexture;
+	/** Returns the texture for this button's icon (if any).  Null is disabled. */
+	public String getTextureIcon() {return iconTexture;}
+	/** Sets the texture for this button's icon. Set to 'null' to disable. */
+	public void setTextureIcon(String imgID) {iconTexture = imgID;}
+
+
+
+
+	// Listener
+	//-----------------------
+
+	/** The button listener handling events for this button. */
+	FWTButtonListener buttonListener;
+	/** Sets the button listener handling events for this button. */
+	public void setButtonListener(FWTButtonListener listener) {buttonListener = listener; buttonListener.setComponent(this);}
+	/** Adds the given Button Listener to the chain for this button. */
+	public void addButtonListener(FWTButtonListener listener)
 		{
-			return "ToggleButton: "+this.name;
+			listener.setComponent(this);
+			if (buttonListener == null)
+				buttonListener = listener;
+			else
+				buttonListener.addChainedButtonListener(listener);
 		}
 
 
-	/** Sets this toggle buttons pressed status. Doesn't trigger button listeners. */
-	public void setPressed(boolean pressed) {this.pressed = pressed; this.redraw();}
 
 
 
-	/** Image ID for this button's pressed icon (if any).  Null is disabled. */
-	protected String pressedIcon;
-	/** Returns the texture for this button's pressed icon (if any).  Null is disabled. */
-	public String getTextureIcon() {return pressedIcon;}
-	/** Sets the texture for this button's pressed icon. Set to 'null' to disable. */
-	public void setTextureIcon(String imgID) {pressedIcon = imgID;}
+
 
 
 
@@ -46,63 +101,75 @@ public class FWTToggleButton extends FWTUIButton
 	//  CONSTRUCTOR
 	//********************************************************************
 
-
-	/** Creates a new blank FWTToggleButton with the given data packet. */
-	public FWTToggleButton(XMLDataPacket data)
+	
+	/** Creates a new blank FWTButton with the given data packet. */
+	public FWTUIButton(XMLDataPacket data)
 		{
 			super(data);
 			createInputReceiver();
 		}
+	
 
-	/** Creates a new blank FWTToggleButton with the given XML target. */
-	public FWTToggleButton(String parent, String object)
+	/** Creates a new blank FWTButton with the XML targets. */
+	public FWTUIButton(String parent, String object)
 		{
 			super(parent,object);
 			createInputReceiver();
 		}
-
-
+	
+	
+	
 
 	//  XML DATA
 	//********************************************************************
 	//********************************************************************
-
-
+	
+	
 	@Override
 	protected void setDefaults()
 		{
 			super.setDefaults();
-			pressedIcon = null;
+			pressedColor = Color.DARK_GRAY;
 		}
-	
-
 
 	@Override
 	protected XMLDataPacket getDefaultPropertiesByFile()
 		{
-			return super.getDefaultPropertiesByFile().merge(FWTController.getDefaultComponentProperties("togglebutton"));
+			return super.getDefaultPropertiesByFile().merge(FWTController.getDefaultComponentProperties("button"));
 		}
 	
 	
-
+	
 	@Override
 	public void applyDataParameters(XMLDataPacket data)
-		{
-			super.applyDataParameters(data);
+	{
+		super.applyDataParameters(data);
+		
+		if (data != null)
+			{					
+				// Pressed Color
+				if (data.get("pressedcolor") != null)
+					{
+						pressedColor = data.getColor("pressedcolor");
+					}
+				else if (data.get("backgroundcolor") != null)
+					{
+						pressedColor = data.getColor("backgroundcolor");
+					}
 
-			if (data != null)
-				{					
-					// Icon Pressed Texture
-					if (data.get("pressedicontexture") != null)
-						{
-							pressedIcon = data.get("pressedicontexture");
-						}
-				}	
-		}
+				// Pressed Texture
+				if (data.get("pressedtexture") != null)
+					{
+						pressedTexture = data.get("pressedtexture");
+					}
 
-
-
-
+				// Icon Texture
+				if (data.get("icontexture") != null)
+					{
+						iconTexture = data.get("icontexture");
+					}
+			}		
+	}
 
 
 
@@ -212,20 +279,9 @@ public class FWTToggleButton extends FWTUIButton
 
 
 			// Draw icon
-			if (pressed)
+			if (iconTexture != null && !iconTexture.isEmpty())
 				{
-
-					if (pressedIcon != null && !pressedIcon.isEmpty())
-						drawIcon(spriteBatch, shapeRenderer, pressedIcon);
-					else if (iconTexture != null && !iconTexture.isEmpty())
-						drawIcon(spriteBatch, shapeRenderer, iconTexture);
-				}
-			else
-				{
-					if (iconTexture != null && !iconTexture.isEmpty())
-						{
-							drawIcon(spriteBatch, shapeRenderer, iconTexture);
-						}
+					drawIcon(spriteBatch, shapeRenderer, iconTexture);
 				}
 
 
@@ -269,6 +325,19 @@ public class FWTToggleButton extends FWTUIButton
 
 
 
+	/** Draws this button's icon.  Can be overridden for more complex overlays. */
+	public void drawIcon(SpriteBatch spriteBatch, ShapeRenderer shapeRenderer, String iconTexture)
+		{
+			if (iconTexture != null)
+				{
+					spriteBatch.begin();
+					UIRenderer.drawUIImage(spriteBatch, id, iconTexture, 0, 0, (int)dims.width, (int)dims.height, true, false);
+					spriteBatch.end();
+				}
+		}
+
+
+
 
 	//********************************************************************
 	//  INPUT
@@ -282,7 +351,7 @@ public class FWTToggleButton extends FWTUIButton
 					@Override
 					public boolean touchDown(int mX, int mY, int pointer, int button) throws FWTInputException
 						{
-							pressed = !pressed; 
+							pressed = true; 
 							if (buttonListener != null)
 								buttonListener.tryButtonDown();
 							needsRedrawn = true;
@@ -291,8 +360,9 @@ public class FWTToggleButton extends FWTUIButton
 						}
 
 					@Override
-					public boolean touchUp(int mX, int mY, int pointer, int button, FWTComponent touchDownComponent)  throws FWTInputException
+					public boolean touchUp(int mX, int mY, int pointer, int button, FWTComponent touchDownComponent) throws FWTInputException
 						{
+							pressed = false;
 							if (buttonListener != null)
 								{
 									buttonListener.tryButtonUp();
@@ -313,6 +383,7 @@ public class FWTToggleButton extends FWTUIButton
 								}
 							else
 								{
+									pressed = false;
 									needsRedrawn = true;
 									return true;
 								}
@@ -321,14 +392,29 @@ public class FWTToggleButton extends FWTUIButton
 					@Override
 					public boolean dragRelease(int mX, int mY, int pointer)  throws FWTInputException
 						{
+							pressed = false;
 							needsRedrawn = true;
 							return true;
 						}
 
 				});
 
-			buttonListener = new FWTButtonListener();
+			addButtonListener(new FWTButtonListener());
 		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

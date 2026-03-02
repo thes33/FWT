@@ -35,15 +35,15 @@ public class XMLDataPacket
 
 	/** Creates a new empty XML data packet. */
 	public XMLDataPacket()
-	{
-		data = new HashMap<String,String>();
-	}
+		{
+			data = new HashMap<String,String>();
+		}
 
 	/** Creates a new XML data packet with the given XML attribute data. */
 	public XMLDataPacket(HashMap<String,String> attribs)
-	{
-		data = attribs;
-	}
+		{
+			data = attribs;
+		}
 
 
 
@@ -54,21 +54,38 @@ public class XMLDataPacket
 
 	/** Creates an identical copy of this data packet. */
 	public XMLDataPacket clone()
-	{
-		XMLDataPacket newData = new XMLDataPacket();
-		if (data != null)
-			{
-				Set<Entry<String,String>> entries = data.entrySet();
-				Iterator<Entry<String,String>> itr = entries.iterator();
-				while (itr.hasNext())
-					{
-						Entry<String,String> next = itr.next();
-						newData.put(next.getKey(), next.getValue());
-					}
-			}
-		return newData;
-	}
+		{
+			XMLDataPacket newData = new XMLDataPacket();
+			if (data != null)
+				{
+					Set<Entry<String,String>> entries = data.entrySet();
+					Iterator<Entry<String,String>> itr = entries.iterator();
+					while (itr.hasNext())
+						{
+							Entry<String,String> next = itr.next();
+							newData.put(next.getKey(), next.getValue());
+						}
+				}
+			return newData;
+		}
 
+
+	/** Merge the given XML data packet into this one. 
+	 * <br> Data from the given packet is prioritized if there is a match.*/
+	public XMLDataPacket merge(XMLDataPacket pullDataPacket)
+		{
+			if (pullDataPacket != null)
+				{
+					Set<Entry<String,String>> entries = pullDataPacket.getMap().entrySet();
+					Iterator<Entry<String,String>> itr = entries.iterator();
+					while (itr.hasNext())
+						{
+							Entry<String,String> next = itr.next();
+							this.put(next.getKey(), next.getValue());
+						}
+				}
+			return this;
+		}
 
 
 
@@ -113,7 +130,7 @@ public class XMLDataPacket
 					data.put(key, str);
 				}
 		}
-	
+
 	/** Puts the Area value in the data packet. */
 	public void putArea(String key, Area val) 
 		{
@@ -181,6 +198,10 @@ public class XMLDataPacket
 	//****************************************************************
 	//****************************************************************
 
+	/** Returns 'true' if this data packet is empty. */
+	public boolean isEmpty() {return data.size() < 1;}
+
+
 	/** Returns 'true' if the given key is contained in the data packet. */
 	public boolean has(String key) {return data.containsKey(key);}
 
@@ -197,225 +218,234 @@ public class XMLDataPacket
 
 	/** Returns the int value for the given key if it exists, otherwise '-1'. */
 	public int getInt(String key)
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				int intVal = -1;
-				try{
-					intVal = Integer.parseInt(val);
-				}catch(NumberFormatException ex){FWTController.error("Format Int Error: "+key);} // Ignore format error
-				return intVal;
-			}
-		return -1;
-	}
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					int intVal = -1;
+					try{
+						intVal = Integer.parseInt(val);
+					}catch(NumberFormatException ex){FWTController.error("Format Int Error: "+key);} // Ignore format error
+					return intVal;
+				}
+			return -1;
+		}
 
 	/** Returns the int value for the given key if it exists, otherwise returns the given default value. */
 	public int getInt(String key, int def)
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				int intVal = -1;
-				try{
-					intVal = Integer.parseInt(val);
-				}catch(NumberFormatException ex){FWTController.error("Format Int Error: "+key);} // Ignore format error
-				return intVal;
-			}
-		return def;
-	}
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					int intVal = -1;
+					try{
+						intVal = Integer.parseInt(val);
+					}catch(NumberFormatException ex){FWTController.error("Format Int Error: "+key);} // Ignore format error
+					return intVal;
+				}
+			return def;
+		}
 
 
 	/** Returns the long value for the given key if it exists, otherwise '-1L'. */
 	public long getLong(String key)
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				long longVal = -1L;
-				try{
-					longVal = Long.parseLong(val);
-				}catch(NumberFormatException ex){FWTController.error("Format Long Error: "+key);} // Ignore format error
-				return longVal;
-			}
-		return -1L;
-	}
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					long longVal = -1L;
+					try{
+						longVal = Long.parseLong(val);
+					}catch(NumberFormatException ex){FWTController.error("Format Long Error: "+key);} // Ignore format error
+					return longVal;
+				}
+			return -1L;
+		}
 	/** Returns the long value for the given key if it exists, otherwise returns the given default value. */
 	public long getLong(String key, long def)
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				long longVal = -1L;
-				try{
-					longVal = Long.parseLong(val);
-				}catch(NumberFormatException ex){FWTController.error("Format Long Error: "+key);} // Ignore format error
-				return longVal;
-			}
-		return def;
-	}
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					long longVal = -1L;
+					try{
+						longVal = Long.parseLong(val);
+					}catch(NumberFormatException ex){FWTController.error("Format Long Error: "+key);} // Ignore format error
+					return longVal;
+				}
+			return def;
+		}
 
 
 	/** Returns the float value for the given key if it exists, otherwise '-1f'. */
 	public float getFloat(String key)
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				float floatVal = -1f;
-				try{
-					floatVal = Float.parseFloat(val);
-				}catch(NumberFormatException ex){FWTController.error("Format Float Error: "+key);} // Ignore format error
-				return floatVal;
-			}
-		return -1f;
-	}
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					float floatVal = -1f;
+					try{
+						floatVal = Float.parseFloat(val);
+					}catch(NumberFormatException ex){FWTController.error("Format Float Error: "+key);} // Ignore format error
+					return floatVal;
+				}
+			return -1f;
+		}
 
 	/** Returns the float value for the given key if it exists, otherwise returns the given default value. */
 	public float getFloat(String key, float def)
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				float floatVal = -1f;
-				try{
-					floatVal = Float.parseFloat(val);
-				}catch(NumberFormatException ex){FWTController.error("Format Float Error: "+key);} // Ignore format error
-				return floatVal;
-			}
-		return def;
-	}
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					float floatVal = -1f;
+					try{
+						floatVal = Float.parseFloat(val);
+					}catch(NumberFormatException ex){FWTController.error("Format Float Error: "+key);} // Ignore format error
+					return floatVal;
+				}
+			return def;
+		}
 
 
 	/** Returns the double value for the given key if it exists, otherwise '-1.0'. */
 	public double getDouble(String key)
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				double doubleVal = -1.0;
-				try{
-					doubleVal = Double.parseDouble(val);
-				}catch(NumberFormatException ex){FWTController.error("Format Double Error: "+key);} // Ignore format error
-				return doubleVal;
-			}
-		return -1.0;
-	}
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					double doubleVal = -1.0;
+					try{
+						doubleVal = Double.parseDouble(val);
+					}catch(NumberFormatException ex){FWTController.error("Format Double Error: "+key);} // Ignore format error
+					return doubleVal;
+				}
+			return -1.0;
+		}
 
 	/** Returns the double value for the given key if it exists, otherwise returns the given default value. */
 	public double getDouble(String key, double def)
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				double doubleVal = -1.0;
-				try{
-					doubleVal = Double.parseDouble(val);
-				}catch(NumberFormatException ex){FWTController.error("Format Double Error: "+key);} // Ignore format error
-				return doubleVal;
-			}
-		return def;
-	}
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					double doubleVal = -1.0;
+					try{
+						doubleVal = Double.parseDouble(val);
+					}catch(NumberFormatException ex){FWTController.error("Format Double Error: "+key);} // Ignore format error
+					return doubleVal;
+				}
+			return def;
+		}
 
 
 	/** Returns the boolean value for the given key if it exists, otherwise 'false'. */
 	public boolean getBoolean(String key)
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				boolean boolVal = false;
-				try{
-					boolVal = Boolean.parseBoolean(val);
-				}catch(NumberFormatException ex){FWTController.error("Format Boolean Error: "+key);} // Ignore format error
-				return boolVal;
-			}
-		return false;
-	}
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					boolean boolVal = false;
+					try{
+						boolVal = Boolean.parseBoolean(val);
+					}catch(NumberFormatException ex){FWTController.error("Format Boolean Error: "+key);} // Ignore format error
+					return boolVal;
+				}
+			return false;
+		}
 
 
-	/** Returns the Position value for the given key if it exists, otherwise 'null'. */
+
+	/** Returns the Position (X,Y,Z) value for the given key if it exists, otherwise 'null'. */
 	public Position getPos(String key)
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				StringTokenizer st = new StringTokenizer(val,"|,");
-				try{
-					int[] pos = {Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken())};
-					return new Position(pos[0],pos[1],pos[2]);
-				}catch(NumberFormatException ex){FWTController.error("Format Pos|Int Error: "+key);} // Ignore format error
-			}
-		return null;
-	}
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					StringTokenizer st = new StringTokenizer(val,"|,");
+					try{
+						if (st.countTokens() > 2)
+							{
+								int[] pos = {Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken())};
+								return new Position(pos[0],pos[1],pos[2]);
+							}
+						else
+							{
+								int[] pos = {Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())};
+								return new Position(pos[0],pos[1]);
+							}
+					}catch(NumberFormatException ex){FWTController.error("Format Pos|Int Error: "+key);} // Ignore format error
+				}
+			return null;
+		}
 
 	/** Returns the Color value for the given key if it exists, otherwise 'null'. */
 	public Color getColor(String key)
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				StringTokenizer st = new StringTokenizer(val,"|,");
-				int numTokens = st.countTokens();
-				try{
-					if (numTokens == 4) // Alpha included
-						{
-							float[] color = {Float.parseFloat(st.nextToken()), Float.parseFloat(st.nextToken()),Float.parseFloat(st.nextToken()),Float.parseFloat(st.nextToken())};
-							return new Color(color[0], color[1], color[2], color[3]);
-						}
-					else if (numTokens == 3) // No alpha (solid color)
-						{
-							float[] color = {Float.parseFloat(st.nextToken()), Float.parseFloat(st.nextToken()),Float.parseFloat(st.nextToken())};
-							return new Color(color[0], color[1], color[2], 1f);
-						}
-					else // String color from Fonts or Color list.
-						{
-							try {  return (Color) FWTColors.class.getField(val.toUpperCase()).get(null);  } catch (Exception ex) {;}
-							try {  return (Color) Color.class.getField(val.toUpperCase()).get(null);  } catch (Exception ex) {;}
-							FWTController.error("No color value: "+val+" found.");
-							return null;
-						}
-				}catch(NumberFormatException ex){FWTController.error("Format Color|Float Error: "+key);} // Ignore format error
-			}
-		return null;
-	}
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					StringTokenizer st = new StringTokenizer(val,"|,");
+					int numTokens = st.countTokens();
+					try{
+						if (numTokens == 4) // Alpha included
+							{
+								float[] color = {Float.parseFloat(st.nextToken()), Float.parseFloat(st.nextToken()),Float.parseFloat(st.nextToken()),Float.parseFloat(st.nextToken())};
+								return new Color(color[0], color[1], color[2], color[3]);
+							}
+						else if (numTokens == 3) // No alpha (solid color)
+							{
+								float[] color = {Float.parseFloat(st.nextToken()), Float.parseFloat(st.nextToken()),Float.parseFloat(st.nextToken())};
+								return new Color(color[0], color[1], color[2], 1f);
+							}
+						else // String color from Fonts or Color list.
+							{
+								try {  return (Color) FWTColors.class.getField(val.toUpperCase()).get(null);  } catch (Exception ex) {;}
+								try {  return (Color) Color.class.getField(val.toUpperCase()).get(null);  } catch (Exception ex) {;}
+								FWTController.error("No color value: "+val+" found.");
+								return null;
+							}
+					}catch(NumberFormatException ex){FWTController.error("Format Color|Float Error: "+key);} // Ignore format error
+				}
+			return null;
+		}
 
 
 
 	/** Returns the Area value for the given key if it exists, otherwise 'null'. */
 	public Area getArea(String key)
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				StringTokenizer st = new StringTokenizer(val,"|,");
-				try{
-					int[] pos = {Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()),
-							Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken())};
-					return new Area(pos[0],pos[1],pos[2],pos[3]);
-				}catch(NumberFormatException ex){FWTController.error("Format Area|Int Error: "+key);} // Ignore format error
-			}
-		return null;
-	}
-	
-	
-	
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					StringTokenizer st = new StringTokenizer(val,"|,");
+					try{
+						int[] pos = {Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()),
+								Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken())};
+						return new Area(pos[0],pos[1],pos[2],pos[3]);
+					}catch(NumberFormatException ex){FWTController.error("Format Area|Int Error: "+key);} // Ignore format error
+				}
+			return null;
+		}
+
+
+
 	/** Returns the list of Strings for the given key if it exists, otherwise 'null'. */
 	public ArrayList<String> getList(String key)
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				StringTokenizer st = new StringTokenizer(val,"|,");
-				ArrayList<String> list = new ArrayList<String>(st.countTokens());
-				while (st.hasMoreTokens())
-					{
-						list.add(st.nextToken());
-					}
-				return list;
-			}
-		return null;
-	}
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					StringTokenizer st = new StringTokenizer(val,"|,");
+					ArrayList<String> list = new ArrayList<String>(st.countTokens());
+					while (st.hasMoreTokens())
+						{
+							list.add(st.nextToken());
+						}
+					return list;
+				}
+			return null;
+		}
 
 
 
@@ -426,29 +456,29 @@ public class XMLDataPacket
 
 	/** Returns the String value for the given key if it exists, otherwise throws an exception. */
 	public String getRequired(String key) throws Exception
-	{
-		String val =  data.get(key);
-		if (val == null) throw new Exception("XMLData: Required key '"+key+"' not found.");
-		return val;
-	}
+		{
+			String val =  data.get(key);
+			if (val == null) throw new Exception("XMLData: Required key '"+key+"' not found.");
+			return val;
+		}
 
 
 
 
 	/** Returns the int value for the given key if it exists, otherwise throws an exception. */
 	public int getRequiredInt(String key) throws Exception
-	{
-		String val = data.get(key);
-		if (val != null)
-			{
-				int intVal = -1;
-				try{
-					intVal = Integer.parseInt(val);
-				}catch(NumberFormatException ex){FWTController.error("Format Int Error: "+key);} // Ignore format error
-				return intVal;
-			}
-		throw new Exception("XMLData: Required key '"+key+"' not found.");
-	}
+		{
+			String val = data.get(key);
+			if (val != null)
+				{
+					int intVal = -1;
+					try{
+						intVal = Integer.parseInt(val);
+					}catch(NumberFormatException ex){FWTController.error("Format Int Error: "+key);} // Ignore format error
+					return intVal;
+				}
+			throw new Exception("XMLData: Required key '"+key+"' not found.");
+		}
 
 
 
@@ -462,42 +492,42 @@ public class XMLDataPacket
 	//****************************************************************
 	//****************************************************************
 
-	
+
 	/** Returns a long-string version of this data packet in 'key:value' pairs separated by '|'. */
 	public String toXMLSaveString()
-	{
-		StringBuilder strB = new StringBuilder();
-		
-		boolean first = true;
-		Iterator<Entry<String,String>> itr = data.entrySet().iterator();
-		while (itr.hasNext())
-			{
-				if (!first) strB.append("|");
-				Entry<String,String> entry = itr.next();
-				strB.append(entry.getKey()+":"+entry.getValue());
-				first = false;
-			}		
-		return strB.toString();
-	}
+		{
+			StringBuilder strB = new StringBuilder();
+
+			boolean first = true;
+			Iterator<Entry<String,String>> itr = data.entrySet().iterator();
+			while (itr.hasNext())
+				{
+					if (!first) strB.append("|");
+					Entry<String,String> entry = itr.next();
+					strB.append(entry.getKey()+":"+entry.getValue());
+					first = false;
+				}		
+			return strB.toString();
+		}
 
 
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

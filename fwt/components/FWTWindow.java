@@ -207,7 +207,7 @@ public class FWTWindow extends FWTContainer
 		}
 
 	/** Close button for this window. */
-	protected FWTButton closeButton;
+	protected FWTUIButton closeButton;
 
 
 
@@ -311,6 +311,16 @@ public class FWTWindow extends FWTContainer
 			setDragResistance(0);
 
 		}
+	
+
+
+	@Override
+	protected XMLDataPacket getDefaultPropertiesByFile()
+		{
+			return super.getDefaultPropertiesByFile().merge(FWTController.getDefaultComponentProperties("window"));
+		}
+	
+	
 
 
 	@Override
@@ -405,6 +415,7 @@ public class FWTWindow extends FWTContainer
 							else if (lock.equals("east"))
 								this.lockedSide = Direction.EAST;
 							else if (lock.equals("west")) this.lockedSide = Direction.WEST;
+							else this.lockedSide = Direction.UP;
 						}
 
 					// Minimum Width
@@ -715,7 +726,7 @@ public class FWTWindow extends FWTContainer
 			if (!data.has("bordercolor")) data.put("bordercolor", "0|0|0|1");
 
 			if (closeButton != null) closeButton.dispose();
-			closeButton = new FWTButton(data);
+			closeButton = new FWTUIButton(data);
 			closeButton.setButtonListener(new FWTButtonListener()
 				{
 					@Override

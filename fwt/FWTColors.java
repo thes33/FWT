@@ -36,31 +36,46 @@ public class FWTColors
 		// PRIMARY & SECONDARY COLORS
 		
 		public static final Color LIGHT_RED = new Color(1f, 0.3f, 0.3f, 1f);
-		public static final Color MID_RED = new Color(0f, 0.6f, 0f, 1f);
+		public static final Color RED = new Color(1f, 0f, 0f, 1f);
+		public static final Color MID_RED = new Color(0.6f, 0f, 0f, 1f);
 		public static final Color DARK_RED = new Color(0.4f, 0f, 0f, 1f);
 
 		public static final Color LIGHTER_GREEN = new Color(0.5f, 1f, 0.5f, 1f);
 		public static final Color LIGHT_GREEN = new Color(0.3f, 1f, 0.3f, 1f);
+		public static final Color GREEN = new Color(0f, 1f, 0f, 1f);
 		public static final Color MID_GREEN = new Color(0f, 0.6f, 0f, 1f);
 		public static final Color DARK_GREEN = new Color(0f, 0.4f, 0f, 1f);
 		
 		public static final Color LIGHT_BLUE = new Color(0.3f, 0.3f, 1f, 1f);
+		public static final Color BLUE = new Color(0f, 0f, 1f, 1f);
 		public static final Color MID_BLUE = new Color(0f, 0f, 0.6f, 1f);
 		public static final Color DARK_BLUE = new Color(0f, 0f, 0.4f, 1f);
 
 		public static final Color LIGHT_YELLOW = new Color(1f, 1f, 0.3f, 1f);
+		public static final Color YELLOW = new Color(1f, 1f, 0f, 1f);
 		public static final Color MID_YELLOW = new Color(0.6f, 0.6f, 0f, 1f);
 		public static final Color DARK_YELLOW = new Color(0.4f, 0.4f, 0f, 1f);
 
 		public static final Color LIGHT_MAGENTA = new Color(1f, 0.3f, 1f, 1f);
+		public static final Color MAGENTA = new Color(1f, 0f, 1f, 1f);
 		public static final Color MID_MAGENTA = new Color(0.6f, 0f, 0.6f, 1f);
 		public static final Color DARK_MAGENTA = new Color(0.4f, 0f, 0.4f, 1f);
 
 		public static final Color LIGHT_CYAN = new Color(0.3f, 1f, 1f, 1f);
+		public static final Color CYAN = new Color(0f, 1f, 1f, 1f);
 		public static final Color MID_CYAN = new Color(0f, 0.6f, 0.6f, 1f);
 		public static final Color DARK_CYAN = new Color(0f, 0.4f, 0.4f, 1f);
-		
 
+		
+		// GRAY SCALE
+		
+		public static final Color WHITE = new Color(1f, 1f, 1f, 1f);
+		public static final Color LIGHT_GRAY = new Color(0.75f, 0.75f, 0.75f, 1f);
+		public static final Color GRAY = new Color(0.5f, 0.5f, 0.5f, 1f);
+		public static final Color DARK_GRAY = new Color(0.25f, 0.25f, 0.25f, 1f);
+		public static final Color BLACK = new Color(0f, 0f, 0f, 1f);
+
+		
 		
 		// TERTIARY COLORS
 
@@ -89,7 +104,7 @@ public class FWTColors
 		public static final Color PARCHMENT = new Color(1f,0.9216f,0.7333f,1f);
 		/** Darker parchment color (Panel standard). */
 		public static final Color DARK_PARCHMENT = new Color(0.95f,0.8716f,0.6833f,1f);
-		/** Lighter background parchment color (TextField color). */
+		/** Lighter background parchment color (TextField color, Button-highlight color). */
 		public static final Color LIGHT_PAPER = new Color(0.95098f,0.8333f,0.65294f, 1f);
 		/** Darker background parchment color. (Button color)*/
 		public static final Color PAPER_BROWN = new Color(0.85098f,0.705882f,0.48235f, 1f);
@@ -104,19 +119,40 @@ public class FWTColors
 		/** Bar color for some slider bars. */
 		public static final Color SLIDER_BAR = new Color(0.90f,0.8216f,0.6333f,1f);
 		
-		// METER COLORS
+		// OLD METER COLORS
 		public static final Color THIRST_BAR = new Color(0, 0.8f, 0.8f, 1f);
 		public static final Color NUTRITION_BAR = new Color(0.8f, 0.58f, 0f, 1f);
-		public static final Color SLEEP_BAR = new Color(0.8f, 0f, 0.8f, 1f);
-		
+		public static final Color SLEEP_BAR = new Color(0.8f, 0f, 0.8f, 1f);		
 		public static final Color HEALTH_BAR = new Color(0.8f, 0f, 0f, 1f);
 		public static final Color STAMINA_BAR = new Color(0f, 0.8f, 0f, 1f);
 		
 		
+		// ATTRIBUTE COLORS
+		public static final Color PHYSICAL_RED = new Color(1f, 0f, 0f, 1f);
+		public static final Color MENTAL_BLUE = new Color(0f, 0f, 1f, 1f);
+		public static final Color SPIRITUAL_YELLOW = new Color(0.6f, 0.6f, 0f, 1f);
+		
+		
+		// RESERVE COLORS
+		public static final Color STAMINA_RED = new Color(0.4843f, 0.0705f, 0.0705f, 1f);
+		public static final Color FOCUS_BLUE = new Color(0f, 0.6392f, 0.8352f, 1f);
+		public static final Color COURAGE_YELLOW = new Color(0.7051f, 0.7090f, 0.2637f, 1f);
+		
+		
+		// TEST RESULT COLORS
+		public static final Color COMPLICATION_YELLOW = new Color(1f, 217f/255f, 102f/255f, 1f);
+		public static final Color WEAK_SUCCESS_GREEN = new Color(169f/255f, 208f/255f, 142f/255f, 1f);
+		public static final Color SUCCESS_GREEN = new Color(84f/255f, 130f/255f, 53f/255f, 1f);
+		public static final Color STRONG_SUCCESS_GREEN = new Color(58f/255f, 90f/255f, 37f/255f, 1f);
+		public static final Color GREAT_SUCCESS_GREEN = new Color(32f/255f, 50f/255f, 20f/255f, 1f);
+		public static final Color CRITICAL_SUCCESS_BLUE = new Color(63f/255f, 87f/255f, 174f/255f, 1f);
+		public static final Color FAILURE_RED = new Color(210f/255f, 0f, 0f, 1f);
+		public static final Color CRITICAL_FAILURE_RED = new Color(124f/255f, 0f, 0f, 1f);
+		
 
 		// TRANSPARENCY COLORS
-		
 		public static final Color INVISIBLE = new Color(0f, 0f, 0f, 0f);
+		public static final Color SHADE_GRAY = new Color(0f, 0f, 0f, 0.66f);
 		public static final Color DIM_GRAY = new Color(0f, 0f, 0f, 0.4f);
 		public static final Color HIGHLIGHT_WHITE = new Color(1f, 1f, 1f, 0.35f);
 		public static final Color HIGHLIGHT_GREEN = new Color(0f, 1f, 0f, 0.35f);
@@ -269,6 +305,7 @@ public class FWTColors
 		{						
 			// Add mark-up colors
 			Colors.put("LIGHT_RED", LIGHT_RED); 
+			Colors.put("DARK_RED", DARK_RED); 
 			Colors.put("BLOOD_RED", new Color(0.3984375f,0f,0f,1f)); 
 			Colors.put("BROWN", BROWN); 
 			Colors.put("MID_YELLOW", MID_YELLOW); 
@@ -279,6 +316,26 @@ public class FWTColors
 			Colors.put("DARK_GREEN",DARK_GREEN);
 			Colors.put("INVISIBLE",INVISIBLE);
 
+			Colors.put("PHYSICAL_RED",PHYSICAL_RED);
+			Colors.put("MENTAL_BLUE",MENTAL_BLUE);
+			Colors.put("SPIRITUAL_YELLOW",SPIRITUAL_YELLOW);
+
+			Colors.put("STAMINA_RED",STAMINA_RED);
+			Colors.put("FOCUS_BLUE",FOCUS_BLUE);
+			Colors.put("COURAGE_YELLOW",COURAGE_YELLOW);
+			
+			Colors.put("COMPLICATION_YELLOW", COMPLICATION_YELLOW);
+			Colors.put("WEAK_SUCCESS_GREEN", WEAK_SUCCESS_GREEN);
+			Colors.put("SUCCESS_GREEN", SUCCESS_GREEN);
+			Colors.put("STRONG_SUCCESS_GREEN", STRONG_SUCCESS_GREEN);
+			Colors.put("GREAT_SUCCESS_GREEN", GREAT_SUCCESS_GREEN);
+			Colors.put("CRITICAL_SUCCESS_BLUE", CRITICAL_SUCCESS_BLUE);
+			Colors.put("FAILURE_RED", FAILURE_RED);
+			Colors.put("CRITICAL_FAILURE_RED", CRITICAL_FAILURE_RED);
+			
+			
+			
+			
 			// Unnecessary ?
 			//-------------------------------
 			//			for (Field field: FWTColors.class.getDeclaredFields())

@@ -1,6 +1,7 @@
 package com.arboreantears.fwt.components;
 
 import com.arboreantears.fwt.Direction;
+import com.arboreantears.fwt.FWTController;
 import com.arboreantears.fwt.Fonts;
 import com.arboreantears.fwt.Language;
 import com.arboreantears.fwt.XMLDataPacket;
@@ -47,6 +48,10 @@ public class FWTLabel extends FWTComponent
 	//-----------------------------
 	/** GlyphLayout for text rendering. */
 	protected GlyphLayout glyphs;
+	
+
+	/** 'True' if this label needs to redraw its glyphs. */
+	protected boolean needsGlyphUpdate;
 
 	
 	
@@ -58,7 +63,7 @@ public class FWTLabel extends FWTComponent
 	/** Returns the String label ID in Language to draw on button. */
 	public String getLabelID() {return labelID;}
 	/** Sets the String label ID in Language to draw on button. */
-	public void setLabelID(String labelID) {this.labelID = labelID; this.updateGlyphs(); this.redraw();}
+	public void setLabelID(String labelID) {this.labelID = labelID; needsGlyphUpdate = true; this.redraw();}
 
 	
 	/** String to display instead of Language ID. */
@@ -66,7 +71,7 @@ public class FWTLabel extends FWTComponent
 	/** Returns the String to display instead of Language ID. Null is disabled. */
 	public String getLabelText() {return this.labelText;}
 	/** Sets the String to display instead of Language ID. Set to Null to disable. */
-	public void setLabelText(String text) {this.labelText = text; this.updateGlyphs(); this.redraw();}
+	public void setLabelText(String text) {this.labelText = text; needsGlyphUpdate = true; this.redraw();}
 
 
 	/** Returns the label string used for displaying.*/
@@ -103,16 +108,13 @@ public class FWTLabel extends FWTComponent
 	
 
 	// Font Colors
-	//-----------------------------
-	/** Currently used font color */
-	Color currentFontColor;
-	
+	//-----------------------------	
 	/** Normal font color. */
 	Color drawFontColor;
 	/** Returns this button's normal font color. */
 	public Color getFontColor() {return drawFontColor;}
 	/** Sets this button's normal font color. */
-	public void setFontColor(Color fcolor) {drawFontColor = fcolor;}
+	public void setFontColor(Color fcolor) {drawFontColor = fcolor.cpy(); needsGlyphUpdate = true; this.redraw();}
 
 
 	
@@ -124,7 +126,7 @@ public class FWTLabel extends FWTComponent
 	/** Returns 'true' if this component automatically adjusts its height to fit the text. */
 	public boolean isAutoAdjusting() {return autoSize;}
 	/** Sets if this component automatically adjusts its height to fit the text. */
-	public void setAutoAdjusting(boolean autoSize) {this.autoSize = autoSize;}
+	public void setAutoAdjusting(boolean autoSize) {this.autoSize = autoSize; }
 	
 	
 
@@ -138,6 +140,16 @@ public class FWTLabel extends FWTComponent
 	public void setWordWrapping(boolean wordWrap) {this.wordWrap = wordWrap;}
 
 	
+
+
+	// Support Text Color Mark-up
+	//-----------------------------
+	/** Text word wrapping. */
+	boolean markupEnabled;
+	/** Returns 'true' if this label supports text color mark-up. */
+	public boolean isMarkupEnabled() {return markupEnabled;}
+	/** Sets if this label supports text color mark-up. */
+	public void setMarkupEnabled(boolean markupEnabled) {this.markupEnabled = markupEnabled;}
 	
 	
 
@@ -174,9 +186,18 @@ public class FWTLabel extends FWTComponent
 			glyphs = new GlyphLayout();
 			alignment = Direction.WEST;
 			txtPadding = 3;
-			currentFontColor = Color.BLACK.cpy();
 			drawFontColor = Color.BLACK.cpy();
+			markupEnabled = false;
 		}
+	
+	
+	@Override
+	protected XMLDataPacket getDefaultPropertiesByFile()
+		{
+			return super.getDefaultPropertiesByFile().merge(FWTController.getDefaultComponentProperties("label"));
+		}
+	
+	
 	
 	@Override
 	public void applyDataParameters(XMLDataPacket data)
@@ -227,6 +248,13 @@ public class FWTLabel extends FWTComponent
 						wordWrap = data.getBoolean("wordwrap");
 					}
 
+				// Mark-up Support
+				//------------------------
+				if (data.get("markup") != null)
+					{
+						markupEnabled = data.getBoolean("markup");
+					}
+
 				// Text Padding
 				//------------------------
 				if (data.get("padding") != null)
@@ -275,10 +303,8 @@ public class FWTLabel extends FWTComponent
 		{
 			super.resize(width,height);
 			updateGlyphs();
-
 		}
 
-	
 	
 	
 
@@ -293,8 +319,7 @@ public class FWTLabel extends FWTComponent
 	public void updateGlyphs()
 	{
 		// Too verbose
-		// if (FWTWindowManager.DEBUG_MODE) GameLog.log("Label: "+this.name+" : Glyphs Updated");
-		
+		// if (FWTWindowManager.DEBUG_MODE) GameLog.log("Label: "+this.name+" : Glyphs Updated");		
 		
 		// Ensure proper width for text
 		if (font != null && getLabelString() != null)
@@ -326,15 +351,14 @@ public class FWTLabel extends FWTComponent
 				}
 
 				// Prepare glyphs	
-				currentFontColor = drawFontColor;
-				font.getData().markupEnabled = true;
+				font.getData().markupEnabled = markupEnabled;
 				String str = getLabelString();
 				if (str == null) str = " ";
 				if (!autoSize)
-					glyphs.setText(font, str, currentFontColor, dims.width, align, wordWrap);
+					glyphs.setText(font, str, drawFontColor, dims.width, align, wordWrap);
 				else // Auto-Size
 					{
-						glyphs.setText(font, str, currentFontColor, dims.width, align, wordWrap); 
+						glyphs.setText(font, str, drawFontColor, dims.width, align, wordWrap); 
 
 						int dblPadding = txtPadding * 2;
 						// IF label not big enough for text, resize				
@@ -368,10 +392,12 @@ public class FWTLabel extends FWTComponent
 		// Draw text
 		if (font != null && label != null)
 			{
+				// Update Glyphs
+				if (needsGlyphUpdate) updateGlyphs();
+				
 				// Draw Label
 				spriteBatch.begin();
-				font.setColor(Color.WHITE);
-				font.getData().markupEnabled = true;
+				font.getData().markupEnabled = markupEnabled;
 
 				try {
 				switch(alignment)

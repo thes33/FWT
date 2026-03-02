@@ -113,7 +113,7 @@ public class XMLUICreator extends DefaultHandler
 			FileHandle overrideFile = new FileHandle(FWTController.getOverrideUIFilePath()+"/"+parentfile+".xml");
 			if (overrideFile.exists())
 				try{
-					window = creator.read(overrideFile.path());
+					window = creator.read(overrideFile.path(), parentfile);
 				}catch(Exception ex)
 				{
 					// Error message variables
@@ -130,7 +130,7 @@ public class XMLUICreator extends DefaultHandler
 					// Read UI XML file [Core]
 					if (coreFile.exists())
 						try{
-							window = creator.read(coreFile.path());
+							window = creator.read(coreFile.path(), parentfile);
 						}catch(Exception ex)
 						{
 							// Error message variables
@@ -155,11 +155,11 @@ public class XMLUICreator extends DefaultHandler
 	//***********************************************************************************************
 
 	/** Reads an XML data contained in the given file and returns a new FWTWindow with all the components. */
-	public FWTWindow read(String document) throws Exception
+	public FWTWindow read(String docPath, String parentFile) throws Exception
 		{
-			targetName = document;
+			targetName = parentFile;
 
-			FWTController.log("XMLUICreator: XML UI Creation: "+document);
+			FWTController.log("XMLUICreator: XML UI Creation: "+docPath);
 
 			// Use the default (non-validating) parser
 			SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -167,9 +167,9 @@ public class XMLUICreator extends DefaultHandler
 			try{
 				// Parse the input
 				SAXParser saxParser = factory.newSAXParser();
-				saxParser.parse( new File(document), this );
+				saxParser.parse( new File(docPath), this );
 			}catch (Exception ex) {ex.printStackTrace(); 
-			FWTController.error("XMUICreator: XML Sax exception."); throw new Exception("File: "+document+"\n      "+ex.getMessage());}
+			FWTController.error("XMUICreator: XML Sax exception."); throw new Exception("File: "+docPath+"\n      "+ex.getMessage());}
 
 			// Enter Waiting Loop
 			while(!finished)
@@ -214,10 +214,11 @@ public class XMLUICreator extends DefaultHandler
 
 			// IF component is properly named
 			if (attrs.getValue("name") != null)
-				{
-
-					// Prepare data packet
-					dataPacket = new XMLDataPacket();
+				{					
+					// Apply default values to FWT Component
+					dataPacket = FWTController.getDefaultComponentProperties(eName);
+					if (dataPacket == null) dataPacket = new XMLDataPacket();
+					
 
 					// IF has attributes
 					if (attrs.getLength() > 0)
@@ -243,6 +244,12 @@ public class XMLUICreator extends DefaultHandler
 
 							// Add component type
 							dataPacket.put("type", eName);
+							
+							// Add objectname type
+							dataPacket.put("objectname", dataPacket.get("name"));
+							
+							// Add parentfile
+							dataPacket.put("parentfile", targetName);
 
 							// Create component based on type
 							FWTComponent comp = FWTComponentFactory.create(dataPacket, eName);

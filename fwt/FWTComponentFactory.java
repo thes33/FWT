@@ -1,9 +1,9 @@
 package com.arboreantears.fwt;
 
-import com.arboreantears.fwt.components.FWTButton;
+import com.arboreantears.fwt.components.FWTUIButton;
 import com.arboreantears.fwt.components.FWTComponent;
 import com.arboreantears.fwt.components.FWTContainer;
-import com.arboreantears.fwt.components.FWTIcon;
+import com.arboreantears.fwt.components.FWTUIIcon;
 import com.arboreantears.fwt.components.FWTLabel;
 import com.arboreantears.fwt.components.FWTListScrollable;
 import com.arboreantears.fwt.components.FWTProgressBar;
@@ -73,11 +73,11 @@ public class FWTComponentFactory
 
 				// FWTButton
 			case "button":
-				comp = new FWTButton(data); break;
+				comp = new FWTUIButton(data); break;
 				
 				// FWTIcon
 			case "icon":
-				comp = new FWTIcon(data); break;
+				comp = new FWTUIIcon(data); break;
 
 				// FWTLabel
 			case "label":

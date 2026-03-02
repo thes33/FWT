@@ -159,7 +159,7 @@ public class FWTScrollable extends FWTContainer
 	public void setShowVerticalBar(boolean vert){showVerticalBar = vert;}
 
 	/** Button for the center vertical scrolling bar. */
-	FWTButton barVButton;
+	FWTUIButton barVButton;
 
 
 
@@ -177,7 +177,7 @@ public class FWTScrollable extends FWTContainer
 	public void setShowHorizontalBar(boolean vert){showHorizontalBar = vert;}
 
 	/** Button for the center horizontal scrolling bar. */
-	FWTButton barHButton;
+	FWTUIButton barHButton;
 
 
 
@@ -252,6 +252,16 @@ public class FWTScrollable extends FWTContainer
 			barSize = 20;
 			needsScrollUpdate = true;			
 		}
+	
+
+
+	@Override
+	protected XMLDataPacket getDefaultPropertiesByFile()
+		{
+			return super.getDefaultPropertiesByFile().merge(FWTController.getDefaultComponentProperties("scrollable"));
+		}
+	
+	
 
 
 	@Override
@@ -1305,7 +1315,7 @@ public class FWTScrollable extends FWTContainer
 			xml.put("height", Integer.toString(barSize));
 
 			if (barHButton != null) barHButton.dispose();
-			barHButton = new FWTButton(xml);
+			barHButton = new FWTUIButton(xml);
 			barHButton.setParent(this);
 			barHButton.setDragResistance(0);
 			barHButton.addInputReceiver(new FWTInputReceiver(){
@@ -1369,7 +1379,7 @@ public class FWTScrollable extends FWTContainer
 			xml.put("height", Integer.toString(barSize));
 
 			if (barVButton != null) barVButton.dispose();
-			barVButton = new FWTButton(xml);
+			barVButton = new FWTUIButton(xml);
 			barVButton.setParent(this);
 			barVButton.setDragResistance(0);
 			barVButton.addInputReceiver(new FWTInputReceiver(){

@@ -124,7 +124,7 @@ public class FWTScrollPanel extends FWTContainer
 	public boolean isShowingScrollBar() {return showScrollBar && needsShowScrollBar;}
 
 	/** Button for the center scrolling bar. */
-	FWTButton barButton;
+	FWTUIButton barButton;
 
 	/** 'True' if the scroll components need a position update. */
 	boolean needsScrollUpdate;
@@ -180,6 +180,16 @@ public class FWTScrollPanel extends FWTContainer
 	public void setWheelScrolling(boolean ws) {wheelScrolling = ws;}
 
 
+	// Scroll Amount
+	//----------------------------------
+
+	/** Amount the panel should scroll with each mouse-wheel. -1 is half-page scrolling [Default].*/
+	int scrollAmount;
+	/** Returns the amount the panel should scroll with each mouse-wheel. -1 is half-page scrolling [Default].*/
+	public int getScrollAmount() {return scrollAmount;}
+	/** Sets the amount the panel should scroll with each mouse-wheel. -1 is half-page scrolling [Default]. */
+	public void setScrollAmount(int sa) {scrollAmount = sa;}
+
 
 
 
@@ -191,7 +201,7 @@ public class FWTScrollPanel extends FWTContainer
 	//********************************************************************
 	//********************************************************************
 
-	
+
 	/** Create a new FWTScrollPanel which allows any FWTComponent to be added to the list and the
 	 *   display panel can extend indefinitely in one direction with scroll bars.*/
 	public FWTScrollPanel(XMLDataPacket data)
@@ -214,7 +224,7 @@ public class FWTScrollPanel extends FWTContainer
 	//********************************************************************
 	//********************************************************************
 
-	
+
 	@Override
 	protected void setDefaults()
 		{
@@ -228,9 +238,19 @@ public class FWTScrollPanel extends FWTContainer
 			gapDistance = 10;
 			maxSize = 0;
 			wheelScrolling = true;		
-			
+			scrollAmount = -1;			
 		}
-	
+
+
+
+	@Override
+	protected XMLDataPacket getDefaultPropertiesByFile()
+		{
+			return super.getDefaultPropertiesByFile().merge(FWTController.getDefaultComponentProperties("scrollpanel"));
+		}
+
+
+
 
 	@Override
 	public void applyDataParameters(XMLDataPacket data)
@@ -243,7 +263,7 @@ public class FWTScrollPanel extends FWTContainer
 			xml.put("position", "1|1");
 			xml.put("width", "1");
 			xml.put("height", "1");
-			
+
 			if (scrollBar != null) scrollBar.dispose();
 			scrollBar = new FWTComponent(xml);
 			scrollBar.setParent(this);
@@ -292,7 +312,7 @@ public class FWTScrollPanel extends FWTContainer
 			xml.put("height", Integer.toString(barSize));
 
 			if (barButton != null) barButton.dispose();
-			barButton = new FWTButton(xml);
+			barButton = new FWTUIButton(xml);
 			barButton.setParent(this);
 			barButton.setDragResistance(0);
 			//this.addComponent(barButton);  // Handled separately
@@ -402,7 +422,7 @@ public class FWTScrollPanel extends FWTContainer
 					//========================
 					if (data.get("orientation") != null)
 						{
-							if (data.get("orientation").contains("horz"))
+							if (data.get("orientation").contains("horiz"))
 								this.orientation = false;
 							else this.orientation = true;
 						}
@@ -428,6 +448,13 @@ public class FWTScrollPanel extends FWTContainer
 							this.barSize = data.getInt("barsize");
 						}
 
+					// Scroll Amount
+					//========================
+					if (data.get("scrollamount") != null)
+						{
+							this.scrollAmount = data.getInt("scrollamount");
+						}
+					else scrollAmount = -1;
 
 					// Key Scrolling
 					//========================
@@ -1421,12 +1448,18 @@ public class FWTScrollPanel extends FWTContainer
 									if (orientation)
 										{
 											int page = (int)(dims.height);
-											scroll(((int)amountY)*page/2);
+											if (scrollAmount < 0)
+												scroll(((int)amountY)*page/2);
+											else		
+												scroll(((int)amountY)*scrollAmount);								
 										}
 									else // HORIZONTAL
 										{
 											int page = (int)(dims.width);
-											scroll(((int)amountY)*page/2);
+											if (scrollAmount < 0)
+												scroll(((int)amountX)*page/2);
+											else		
+												scroll(((int)amountX)*scrollAmount);		
 										}
 									return true;
 								}

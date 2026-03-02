@@ -1,5 +1,6 @@
 package com.arboreantears.fwt.components;
 
+import com.arboreantears.fwt.FWTController;
 import com.arboreantears.fwt.Fonts;
 import com.arboreantears.fwt.Language;
 import com.arboreantears.fwt.UIRenderer;
@@ -154,7 +155,7 @@ public class FWTProgressBar extends FWTComponent
 		{
 			super.setDefaults();
 			progress = 0f;
-			isVertical = true;
+			isVertical = false;
 			showProgressPercentage = true;
 			font = Fonts.getFont(20);
 			drawFontColor = Color.WHITE.cpy();
@@ -164,6 +165,16 @@ public class FWTProgressBar extends FWTComponent
 			barColor = Color.GREEN.cpy();
 			borderColor = Color.BLACK.cpy();
 		}
+	
+
+
+	@Override
+	protected XMLDataPacket getDefaultPropertiesByFile()
+		{
+			return super.getDefaultPropertiesByFile().merge(FWTController.getDefaultComponentProperties("progressbar"));
+		}
+	
+	
 	
 
 	@Override
@@ -188,7 +199,7 @@ public class FWTProgressBar extends FWTComponent
 				// Bar Orientation
 				if (data.get("orientation") != null)
 					{
-						isVertical = data.get("orientation").equals("vertical") ? true : false;
+						isVertical = data.get("orientation").contains("vert") ? true : false;
 					}
 
 				// Bar Progress
@@ -253,14 +264,14 @@ public class FWTProgressBar extends FWTComponent
 						{
 							spriteBatch.begin();
 							UIRenderer.drawUIImage(spriteBatch, id, barTexture, 0, 0, 
-									(int)(getDimensions().width),(int)(getDimensions().height*progress), scaleTexture, !scaleTexture);
+									(int)(getDimensions().width),(int)(getDimensions().height*progress), scaleTexture, tileTexture);
 							spriteBatch.end();
 						}
 					else
 						{
 							spriteBatch.begin();
 							UIRenderer.drawUIImage(spriteBatch, id, barTexture, 0, 0, 
-									(int)(getDimensions().width*progress),(int)(getDimensions().height), scaleTexture, !scaleTexture);
+									(int)(getDimensions().width*progress),(int)(getDimensions().height), scaleTexture, tileTexture);
 							spriteBatch.end();
 						}
 				}
@@ -318,7 +329,7 @@ public class FWTProgressBar extends FWTComponent
 		else
 			{
 				spriteBatch.begin();
-				UIRenderer.drawUIImage(spriteBatch, id, borderTexture, 0, 0,(int)dims.width,(int)dims.height, scaleTexture, !scaleTexture);
+				UIRenderer.drawUIImage(spriteBatch, id, borderTexture, 0, 0,(int)dims.width,(int)dims.height, scaleTexture, tileTexture);
 				spriteBatch.end();
 			}
 

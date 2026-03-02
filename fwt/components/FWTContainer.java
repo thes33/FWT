@@ -207,10 +207,21 @@ public class FWTContainer extends FWTComponent
 			components = new ArrayList<FWTComponent>();
 		}
 	
+
+	@Override
+	protected XMLDataPacket getDefaultPropertiesByFile()
+		{
+			return super.getDefaultPropertiesByFile().merge(FWTController.getDefaultComponentProperties("container"));
+		}
+
+
+	
 	@Override
 	public void refreshData()
 		{
+			ArrayList<FWTComponent> tempComps = components;
 			super.refreshData();
+			this.components = tempComps;
 
 			if (components != null)
 				for (FWTComponent comp : components)

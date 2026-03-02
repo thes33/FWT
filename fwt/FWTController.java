@@ -210,8 +210,16 @@ public class FWTController
 
 
 	/** Returns the default UI component properties filename. */
-	public String getDefaultComponentProperties()
-		{return controlInterface.getDefaultComponentProperties();}
+	public static String getDefaultComponentPropertiesFilename()
+		{return controlInterface.getDefaultComponentPropertiesFilename();}
+	
+	
+	/** Returns an XML data packet of the default properties for the given component type. */
+	public static XMLDataPacket getDefaultComponentProperties(String type)
+	{
+		 XMLDataPacket data = XMLUIReader.getUISpecs(getDefaultComponentPropertiesFilename(),type);		
+		 return data;
+	}
 
 	
 	
@@ -222,8 +230,12 @@ public class FWTController
 	//********************************************************************
 
 	/** Returns the bitmap font file listing. */ 
-	public static ArrayList<String> getFontListing()
-		{ return controlInterface.getFontListing(); }
+	public static ArrayList<String> getBitmapFontListing()
+		{ return controlInterface.getBitmapFontListing(); }
+	
+	/** Returns the TrueType font file listing. */ 
+	public static ArrayList<String> getTrueTypeFontListing()
+		{ return controlInterface.getTrueTypeFontListing(); }
 
 
 	/** Returns the bitmap font file directory. */

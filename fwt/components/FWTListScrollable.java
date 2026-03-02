@@ -180,6 +180,15 @@ public class FWTListScrollable<E, T extends FWTComponent> extends FWTScrollable
 			orientation = true;
 			componentData = new XMLDataPacket();
 		}
+	
+
+	@Override
+	protected XMLDataPacket getDefaultPropertiesByFile()
+		{
+			return super.getDefaultPropertiesByFile().merge(FWTController.getDefaultComponentProperties("listscrollable"));
+		}
+	
+	
 
 	@Override
 	public void applyDataParameters(XMLDataPacket data)

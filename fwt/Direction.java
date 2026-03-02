@@ -61,7 +61,7 @@ public enum Direction
 		{
 			//Language: actions.xml
 			
-			return Language.get("action_facing_"+facing.name());
+			return Language.get("DIRECTION_"+facing.name());
 		}
 
 

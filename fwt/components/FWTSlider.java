@@ -155,9 +155,9 @@ public class FWTSlider extends FWTContainer
 	public FWTComponent getSliderBar() {return sliderBar;}
 
 	/** Button for the center bar button. */
-	FWTButton barButton;
+	FWTUIButton barButton;
 	/** Returns the bar button for this slider. */
-	public FWTButton getBarButton() {return barButton;}
+	public FWTUIButton getBarButton() {return barButton;}
 
 
 
@@ -233,6 +233,16 @@ public class FWTSlider extends FWTContainer
 			barSize = 20;
 			padding = 3;			
 		}
+	
+
+
+	@Override
+	protected XMLDataPacket getDefaultPropertiesByFile()
+		{
+			return super.getDefaultPropertiesByFile().merge(FWTController.getDefaultComponentProperties("slider"));
+		}
+	
+	
 
 
 	@Override
@@ -292,7 +302,7 @@ public class FWTSlider extends FWTContainer
 			xml.put("height", "1");
 
 			if (barButton != null) barButton.dispose();
-			barButton = new FWTButton(xml);
+			barButton = new FWTUIButton(xml);
 			this.addComponent(barButton);
 			barButton.addInputReceiver(new FWTInputReceiver()
 				{
