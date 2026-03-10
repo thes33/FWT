@@ -4,6 +4,10 @@ Flexible Windowing Toolkit for use with <a href="http://www.libgdx.com">LibGDX</
 FWT is a lightweight UI toolkit built on top of libGDX. It provides a window manager, XML-driven UI layouts,
 and a set of reusable UI components intended for game UIs.
 
+* FWT started development in 2012, when libGDX's UI system was not particularly great.  The current Scene2D system
+    is quite capable these days.  However, if you want to develop a complex game with lots of windows and UI elements,
+    you may find that FWT provides a robust windowing system for more complex UI development.
+
 ## Features
 
 - Window manager with focus, layering, and input routing
