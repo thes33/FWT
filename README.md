@@ -59,6 +59,8 @@ assets/
     tooltipBar.xml
   font/
     <font>.ttf
+  lang/<lang_code>/ ('en')
+    ui.xml
   image/
     uiimage.atlas
 ```
