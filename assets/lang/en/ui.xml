@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!--  Endless Worlds GUI Language File: English  -->
+
+<root>
+	
+	<test
+		ui_test_title = "Test"
+    ui_test_subtitle = "Testing the FWT system."
+    ui_test_btn = "ButtonLabel"
+	/>
+	
+</root>  
+
+
+
+
+<!--  EOF -->
