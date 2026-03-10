@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<!-- Default UI Specifications -->
+<!-- ================================= -->
+
+<root>
+
+    <component
+            name="component"
+            position="20,220"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"/>
+
+
+    <container
+            name="container"
+            position="20,220"
+            width="200"
+            height="200"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="light_paper"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"/>
+
+
+    <button
+            name="button"
+            position="20,220"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            pressedcolor="dark_paper"
+            pressedtexture=""
+            icontexture=""/>
+
+    <icon
+            name="icon"
+            position="20,220"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            icontexture="cursor"/>
+
+    <label
+            name="label"
+            position="200,400"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="invisible"
+            highlightbordercolor="invisible"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            fontcolor="black"
+            fontsize="22"
+            labelid=""
+            labeltext=""
+            autosize="false"
+            wordwrap="false"
+            markup="false"
+            padding="3"
+            textalignment="left"/>
+
+
+    <listscrollable
+            name="listscrollable"
+            position="200,400"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            verticalscroll="true"
+            horizontalscroll="false"
+            virtualwidth="100"
+            virtualheight="100"
+            virtualstart="0|0"
+            showverticalscroll="true"
+            showhorizontalscroll="false"
+            barsize="20"
+            keyscrolling="false"
+
+            gapdistance="10"
+            compwidth="10"
+            compheight="10"
+            orientation="vertical"/>
+
+
+    <progressbar
+            name="progressbar"
+            position="20,220"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            barcolor="green"
+            bartexture=""
+            orientation="horizontal"
+            progress="0.5"
+            fontcolor="black"
+            fontsize="20"
+            labelid=""
+            labeltext=""
+            showpercentage="true"/>
+
+
+    <scrollable
+            name="scrollable"
+            position="200,400"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            verticalscroll="true"
+            horizontalscroll="false"
+            virtualwidth="100"
+            virtualheight="100"
+            virtualstart="0|0"
+            showverticalscroll="true"
+            showhorizontalscroll="false"
+            barsize="20"
+            keyscrolling="false"
+
+            buttonbordercolor="dark_brown"
+            buttonhighlightbordercolor="dark_brown"
+            buttonbackgroundcolor="parchment"
+            buttonhighlightcolor="light_paper"
+            buttonpressedcolor="dark_brown"
+            buttonbordertexture=""
+            buttonbackgroundtexture="button.9"
+            buttonhighlighttexture="buttonh.9"
+            buttonpressedtexture="buttonp.9"
+            buttontexturefill="stretched"
+            buttonborder="true"
+
+            barbordertexture=""
+            barbordercolor="dark_brown"
+            barbackgroundcolor="light_paper"
+            barhighlightcolor="light_paper"
+            barbackgroundtexture=""
+            barhighlighttexture=""
+            bartexturefill="stretched"
+            barborder="true"/>
+
+
+    <scrollpanel
+            name="scrollpanel"
+            position="200,400"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="dark_parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            verticalscroll="true"
+            horizontalscroll="false"
+            virtualwidth="100"
+            virtualheight="100"
+            virtualstart="0|0"
+            showverticalscroll="true"
+            showhorizontalscroll="false"
+            barsize="20"
+            keyscrolling="false"
+            wheelscrolling="true"
+            showscrollbar="true"
+
+            gapdistance="10"
+            maxcompsize="0"
+            orientation="vertical"
+
+            buttonbordercolor="dark_brown"
+            buttonhighlightbordercolor="dark_brown"
+            buttonbackgroundcolor="parchment"
+            buttonhighlightcolor="light_paper"
+            buttonbordertexture=""
+            buttonpressedcolor="dark_brown"
+            buttonbackgroundtexture="button.9"
+            buttonhighlighttexture="buttonh.9"
+            buttonpressedtexture="buttonp.9"
+            buttontexturefill="stretched"
+            buttonborder="true"
+
+            barbordercolor="dark_brown"
+            barbackgroundcolor="dark_parchment"
+            barhighlightcolor="dark_parchment"
+            barbordertexture=""
+            barbackgroundtexture=""
+            barhighlighttexture=""
+            bartexturefill="stretched"
+            barborder="true"/>
+
+    <slider
+            name="slider"
+            position="20,220"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            orientation="vertical"
+            barsize="20"
+            padding="3"
+            keyscrolling="false"
+            wheelscrolling="true"
+            valuerange="0,10"
+            value="5"
+
+            fontsize="20"
+            labelfontsize="20"
+            numfontsize="20"
+            fontcolor="black"
+            labelfontcolor="black"
+            numfontcolor="black"
+            labelid=""
+            labelstring=""
+            numlabels="true"
+            shownumbers="true"/>
+
+
+    <textbutton
+            name="textbutton"
+            position="20,220"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            pressedcolor="dark_paper"
+            pressedtexture=""
+            icontexture=""
+
+            fontcolor="black"
+            highlightfontcolor="black"
+            pressedfontcolor="black"
+            fontsize="20"
+            labelid=""
+            autosize="false"
+            wordwrap="false"
+            padding="3"
+            textalignment="center"/>
+
+    <textfield
+            name="textfield"
+            position="20,220"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            fontcolor="black"
+            highlightfontcolor="white"
+            fontsize="20"
+            text=""
+            wordwrap="false"
+            padding="3"
+            maxlength="10"
+            allowedchars=""
+            msgtext="Type here..."/>
+
+
+    <togglebutton
+            name="togglebutton"
+            position="20,220"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            pressedcolor="dark_paper"
+            pressedtexture=""
+
+            icontexture=""
+            pressedicontexture="closebtn"/>
+
+
+    <window
+            name="window"
+            position="20,220"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            title="Window"
+            closable="true"
+            extendwidth="true"
+            extendheight="true"
+            borderbar="true"
+            passivebordercolor="gray"
+            movable="true"
+            locked=""/>
+
+
+    <!-- FWT ADDONS ============================================= -->
+
+    <gameicon
+            name="gameicon"
+            position="20,220"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            icontexture="cursor"
+            icontype="core"/>
+
+
+    <iconbutton
+            name="iconbutton"
+            position="20,220"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            pressedcolor="dark_paper"
+            pressedtexture=""
+            icontexture="cursor"
+
+            icontype="core"/>
+
+
+    <itemslot
+            name="itemslot"
+            position="20,220"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            pressedcolor="dark_paper"
+            pressedtexture=""
+            icontexture="cursor"/>
+
+
+    <liquidtank
+            name="liquidtank"
+            position="20,220"
+            width="120"
+            height="40"
+            tooltip=""
+            bordercolor="dark_brown"
+            highlightbordercolor="dark_brown"
+            backgroundcolor="parchment"
+            highlightcolor="light_paper"
+            backgroundtexture=""
+            highlighttexture=""
+            bordertexture=""
+            border="true"
+            texturefill="stretched"
+
+            pressedcolor="dark_paper"
+            pressedtexture=""
+            icontexture="cursor"/>
+
+
+</root>
+
+
+        <!-- EOF -->
