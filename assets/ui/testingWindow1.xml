@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<!-- Testing Window 1: UI Specifications -->
+<!-- ================================= -->
+
+<root>
+
+
+	<!-- WINDOW 1 -->
+	<!--=============================== -->
+	<window
+		name="window1"
+		title="Window"
+		width="500"
+		height="500"
+		position="420,140"
+
+		border="true"
+		movable="true"
+		borderbar="true"
+	>
+
+
+
+		<component
+			name="comp1"
+			position="200,400"
+			width="120"
+			height="40"
+
+			tooltip=""
+
+			border="true"
+			bordercolor="dark_brown"
+			highlightbordercolor="dark_brown"
+
+			backgroundcolor="parchment"
+			highlightcolor="light_paper"
+
+			backgroundtexture=""
+			highlighttexture=""
+			bordertexture=""
+			texturefill="stretched" />
+
+		<button
+			name="button1"
+			position="20,400"
+			width="120"
+			height="40"
+
+			tooltip=""
+
+			border="true"
+			bordercolor="dark_brown"
+			highlightbordercolor="dark_brown"
+
+			backgroundcolor="paper_brown"
+			highlightcolor="light_paper"
+
+			backgroundtexture=""
+			highlighttexture=""
+			bordertexture=""
+			texturefill="tiled"
+
+			pressedcolor="dark_paper"
+			pressedtexture=""
+			icontexture="cursor" />
+
+
+		<textbutton
+			name="txtbutton1"
+			position="20,340"
+			width="120"
+			height="40"
+
+			tooltip=""
+
+			border="true"
+			bordercolor="dark_brown"
+			highlightbordercolor="dark_brown"
+
+			backgroundcolor="paper_brown"
+			highlightcolor="light_paper"
+
+			backgroundtexture=""
+			highlighttexture=""
+			bordertexture=""
+			texturefill="tiled"
+
+			pressedcolor="dark_paper"
+			pressedtexture=""
+			icontexture="" 
+			
+			fontcolor="black"
+			highlightfontcolor="gray"
+			pressedfontcolor="red"
+			fontsize="20"
+			labelid=""			
+			labeltext="Text Button"
+			autosize="false" 
+			wordwrap="false"
+			padding="0"
+			textalignment="center"
+			/>
+
+		<icon
+			name="icon1"
+			position="20,280"
+			width="120"
+			height="40"
+			icontexture="cursor" />
+
+		<label
+			name="label1"
+			position="20,220"
+			width="120"
+			height="40"
+			labeltext="Label"
+			bordercolor="invisible"
+			highlightbordercolor="invisible" />
+
+		<progressbar
+			name="progressbar1"
+			position="20,160"
+			width="420"
+			height="20"
+			barcolor="green"
+			bartexture=""
+			orientation="horizontal"
+			progress="0.5"
+			fontcolor="black"
+			fontsize="20"
+			labelid=""
+			labeltext="Progress Bar"
+			bordercolor="invisible"
+			showpercentage="true" />
+
+		<slider
+			name="slider1"
+			position="20,50"
+			width="220"
+			height="60"
+			orientation="vertical"
+			wheelscrolling="true"
+			shownumbers="true"
+			valuerange="0,10"
+			value="5"
+			bordercolor="invisible"
+			highlightbordercolor="invisible" />
+
+	</window>
+
+
+
+
+
+</root>
+
+
+
+
+<!-- EOF -->
