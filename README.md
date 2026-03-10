@@ -44,6 +44,9 @@ FWTWindowManager manager = FWTController.createWindowManager();
 
 3. Load UI definitions from XML and create components using `XMLUIReader` and `FWTComponentFactory`.
 
+Check out the <a href="https://github.com/thes33/FWT/blob/main/FWT_XML_Schema.xsd">XML Schema</a> for XML definitions.
+More information about the <a href="https://github.com/thes33/FWT/blob/main/fwt-xml-dsl.md">XML DSL Specifications</a> can be found.
+
 ## Assets and Layout
 
 FWT reads XML UI definitions, fonts, and a UI texture atlas via the paths provided by
