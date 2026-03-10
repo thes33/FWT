@@ -14,6 +14,7 @@ and a set of reusable UI components intended for game UIs.
 - XML-driven UI definitions and default component styling
 - Built-in components (window, button, label, slider, scrollable, text field, toggle, etc.)
 - Texture atlas and font support for UI rendering
+- Language localization system for all in-game text.
 
 ## Requirements
 
