@@ -8,7 +8,7 @@ The DSL is consumed by `XMLUICreator` (full window inflation) and `XMLUIReader` 
 - `XMLUICreator.create("someFile")` searches `FWTControlInterface.getOverrideUIFilePath()` first,
   then `FWTControlInterface.getUIFilePath()` for `someFile.xml`.
 - Default values are loaded from the file named by
-  `FWTControlInterface.getDefaultComponentPropertiesFilename()` (in this repo: `desktop/data/ui/UI_defaults.xml`).
+  `FWTControlInterface.getDefaultComponentPropertiesFilename()` (in this repo: `/ui/UI_defaults.xml`).
 - Defaults are merged with XML attributes, where the XML attributes win.
 
 ## Structure
@@ -18,8 +18,17 @@ Nesting determines parent/child relationships (e.g., components inside a `<windo
 
 ```xml
 <root>
-    <window name="main" width="500" height="500" position="420,140">
-        <textbutton name="ok" position="20,20" width="120" height="40" labeltext="OK" />
+    <window
+      name="main"
+      width="500"
+      height="500"
+      position="420,140">
+        <textbutton
+          name="ok"
+          position="20,20"
+          width="120"
+          height="40"
+          labeltext="OK" />
     </window>
 </root>
 ```
@@ -365,7 +374,7 @@ Inherits `button` attributes. No additional XML attributes are parsed.
 
 ## Tooltip bar XML
 
-The tooltip bar is configured separately via `desktop/data/ui/tooltipBar.xml` and is read
+The tooltip bar is configured separately via `/ui/tooltipBar.xml` and is read
 by `UIToolTipBar`.
 
 | Attribute | Type/format | Description |
@@ -380,7 +389,7 @@ Note: `UIToolTipBar` reads `backgroundtexture` (not `bgtexture`).
 
 ## Getting started example
 
-Minimal XML file (`desktop/data/ui/minimalWindow.xml`):
+Minimal XML file:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
@@ -473,5 +482,5 @@ public boolean keyTyped(char character) {
 
 For complete examples:
 
-- `desktop/data/ui/testingWindow1.xml`
-- `desktop/data/ui/UI_defaults.xml`
+- `/ui/testingWindow1.xml`
+- `/ui/UI_defaults.xml`
